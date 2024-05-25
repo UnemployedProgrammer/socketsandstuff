@@ -1,8 +1,8 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "block/quartz_block_side",
-		"particle": "block/quartz_block_side"
+		"0": "sockets:block/socket_painted_quartz",
+		"particle": "minecraft:block/quartz_block_top"
 	},
 	"elements": [
 		{

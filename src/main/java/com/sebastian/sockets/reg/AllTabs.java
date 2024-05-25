@@ -11,12 +11,12 @@ import net.minecraftforge.registries.RegistryObject;
 public class AllTabs {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, Sockets.MODID);
 
-    public static final RegistryObject<CreativeModeTab> EXAMPLE_TAB = CREATIVE_MODE_TABS.register("example_tab", () -> CreativeModeTab.builder()
+    public static final RegistryObject<CreativeModeTab> MAIN = CREATIVE_MODE_TABS.register("main", () -> CreativeModeTab.builder()
             .withTabsBefore(CreativeModeTabs.COMBAT)
-            .icon(() -> Items.COMMAND_BLOCK.getDefaultInstance())
+            .icon(() -> AllBlocks.SOCKET.get().asItem().getDefaultInstance())
             .displayItems((parameters, output) -> {
                 //output.accept(item);
-
+                output.accept(AllBlocks.SOCKET.get().asItem().getDefaultInstance());
             }).build());
 
 }

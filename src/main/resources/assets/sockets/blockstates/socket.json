@@ -1,0 +1,31 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "sockets:block/socket",
+      "x": 90
+    },
+    "facing=east": {
+      "model": "sockets:block/socket",
+      "x": 0,
+      "y": 90
+    },
+    "facing=north": {
+      "model": "sockets:block/socket",
+      "x": 0
+    },
+    "facing=south": {
+      "model": "sockets:block/socket",
+      "x": 0,
+      "y": 180
+    },
+    "facing=up": {
+      "model": "sockets:block/socket",
+      "x": 270
+    },
+    "facing=west": {
+      "model": "sockets:block/socket",
+      "x": 0,
+      "y": 270
+    }
+  }
+}
