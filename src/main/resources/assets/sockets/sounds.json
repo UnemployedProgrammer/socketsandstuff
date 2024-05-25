@@ -1,0 +1,14 @@
+{
+  "toaster_in": {
+    "subtitles": "sounds.sockets.toasterin",
+    "sounds": [
+      "sockets:toaster/in"
+    ]
+  },
+  "toaster_pop": {
+    "subtitles": "sounds.sockets.toasterpop",
+    "sounds": [
+      "sockets:toaster/pop"
+    ]
+  }
+}

@@ -1,13 +1,16 @@
 package com.sebastian.sockets.blockentities;
 
+import com.sebastian.sockets.math.RandomMath;
 import com.sebastian.sockets.misc.ToasterRawRecipe;
 import com.sebastian.sockets.reg.AllBlockEntities;
+import com.sebastian.sockets.reg.AllSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -136,6 +139,7 @@ public class ToasterBlockEntity extends SocketPluggableEntity {
                 itementity.setDefaultPickUpDelay();
                 level.addFreshEntity(itementity);
                 setItem(ItemStack.EMPTY);
+                sound(false);
             }
         }
     }
@@ -149,6 +153,7 @@ public class ToasterBlockEntity extends SocketPluggableEntity {
             setItem(new ItemStack(item));
             recipe = true;
             out = true;
+            sound(true);
         }
         return out;
     }
@@ -161,6 +166,13 @@ public class ToasterBlockEntity extends SocketPluggableEntity {
         setItem(ItemStack.EMPTY);
         recipe = false;
         countup = 0;
+        sound(false);
+    }
+
+    public void sound(boolean in) {
+        if(level == null) return;
+        float randomValue = RandomMath.getRandomFloat(0.9f, 1.1f);
+        level.playSound(null, worldPosition, in ? AllSounds.TOASTER_POP.get() : AllSounds.TOASTER_IN.get(), SoundSource.BLOCKS, 0.5f, randomValue);
     }
 
     @Override

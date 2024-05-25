@@ -1,10 +1,7 @@
 package com.sebastian.sockets;
 
 import com.mojang.logging.LogUtils;
-import com.sebastian.sockets.reg.AllBlockEntities;
-import com.sebastian.sockets.reg.AllBlocks;
-import com.sebastian.sockets.reg.AllItems;
-import com.sebastian.sockets.reg.AllTabs;
+import com.sebastian.sockets.reg.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.food.FoodProperties;
@@ -53,6 +50,7 @@ public class Sockets
         AllBlocks.BLOCKS.register(modEventBus);
         AllTabs.CREATIVE_MODE_TABS.register(modEventBus);
         AllBlockEntities.BLOCK_ENTITIES.register(modEventBus);
+        AllSounds.SOUND_EVENTS.register(modEventBus);
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
