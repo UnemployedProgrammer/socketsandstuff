@@ -1,5 +1,8 @@
 {
   "itemGroup.sockets.main": "Sockets",
   "block.sockets.socket": "Socket",
-  "block.sockets.toaster": "Toaster"
+  "block.sockets.toaster": "Toaster",
+  "item.sockets.toasted_bread": "Toasted Bread",
+  "sounds.sockets.toasterin": "Toaster Activated",
+  "sounds.sockets.toasterpop": "Toaster Pops"
 }

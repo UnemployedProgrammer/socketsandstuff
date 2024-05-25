@@ -3,6 +3,7 @@ package com.sebastian.sockets.blockentities;
 import com.sebastian.sockets.math.RandomMath;
 import com.sebastian.sockets.misc.ToasterRawRecipe;
 import com.sebastian.sockets.reg.AllBlockEntities;
+import com.sebastian.sockets.reg.AllItems;
 import com.sebastian.sockets.reg.AllSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -100,7 +101,6 @@ public class ToasterBlockEntity extends SocketPluggableEntity {
     }
 
     public void useToasterTick() {
-        System.out.println("YEY: " + getEnergy().getEnergyStored());
         if(getEnergy().getEnergyStored() <= 0) return;
         getEnergy().removeEnergy(1);
         countup++;
@@ -108,7 +108,7 @@ public class ToasterBlockEntity extends SocketPluggableEntity {
     }
 
     public static List<ToasterRawRecipe> getRecipesList(List<ToasterRawRecipe> starter_or_empty_list_of_recipes) {
-        starter_or_empty_list_of_recipes.add(new ToasterRawRecipe(Items.BREAD, Items.CAKE));
+        starter_or_empty_list_of_recipes.add(new ToasterRawRecipe(Items.BREAD, AllItems.TOASTED_BREAD.get()));
         return starter_or_empty_list_of_recipes;
     }
 
@@ -179,7 +179,6 @@ public class ToasterBlockEntity extends SocketPluggableEntity {
     public void tick() {
         if(recipe) {
             useToasterTick();
-            System.out.println("Recipe");
         }
         super.tick();
     }
