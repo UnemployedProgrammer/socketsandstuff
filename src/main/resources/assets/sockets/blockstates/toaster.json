@@ -1,0 +1,31 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "sockets:block/toaster",
+      "x": 0
+    },
+    "facing=east": {
+      "model": "sockets:block/toaster",
+      "x": 0,
+      "y": 90
+    },
+    "facing=south": {
+      "model": "sockets:block/toaster",
+      "x": 0,
+      "y": 180
+    },
+    "facing=west": {
+      "model": "sockets:block/toaster",
+      "x": 0,
+      "y": 270
+    },
+    "facing=down": {
+      "model": "sockets:block/toaster",
+      "x": 0
+    },
+    "facing=up": {
+      "model": "sockets:block/toaster",
+      "x": 0
+    }
+  }
+}

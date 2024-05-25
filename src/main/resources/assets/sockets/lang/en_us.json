@@ -1,4 +1,5 @@
 {
   "itemGroup.sockets.main": "Sockets",
-  "block.sockets.socket": "Socket"
+  "block.sockets.socket": "Socket",
+  "block.sockets.toaster": "Toaster"
 }

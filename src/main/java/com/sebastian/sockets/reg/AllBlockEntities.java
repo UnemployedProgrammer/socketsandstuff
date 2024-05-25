@@ -2,6 +2,7 @@ package com.sebastian.sockets.reg;
 
 import com.sebastian.sockets.Sockets;
 import com.sebastian.sockets.blockentities.SocketBlockEntity;
+import com.sebastian.sockets.blockentities.ToasterBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -16,5 +17,10 @@ public class AllBlockEntities {
                 BLOCK_ENTITIES.register("socket_entity",
                         () -> BlockEntityType.Builder.of(SocketBlockEntity::new, AllBlocks.SOCKET.get())
                                 .build(null));
+
+    public static final RegistryObject<BlockEntityType<ToasterBlockEntity>> TOASTER_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("toaster_entity",
+                    () -> BlockEntityType.Builder.of(ToasterBlockEntity::new, AllBlocks.TOASTER.get())
+                            .build(null));
 
 }

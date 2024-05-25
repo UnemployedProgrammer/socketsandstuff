@@ -1,5 +1,6 @@
 package com.sebastian.sockets.blockentities;
 
+import com.sebastian.sockets.misc.SocketPlugable;
 import com.sebastian.sockets.reg.AllBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -9,7 +10,7 @@ import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.TickingBlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
@@ -18,13 +19,14 @@ import net.minecraftforge.energy.EnergyStorage;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class SocketBlockEntity extends BlockEntity implements TickableBlockEntity {
-    public SocketBlockEntity(BlockPos pPos, BlockState pBlockState) {
-        super(AllBlockEntities.SOCKET_BLOCK_ENTITY.get(), pPos, pBlockState);
-    }
+public class SocketPluggableEntity extends BlockEntity implements TickableBlockEntity {
 
     private final AdvancedEnergyStorage energy = new AdvancedEnergyStorage(2760, 230, 230, 0);
     private final LazyOptional<AdvancedEnergyStorage> energyOptional = LazyOptional.of(() -> this.energy);
+
+    public SocketPluggableEntity(BlockEntityType<?> pType, BlockPos pPos, BlockState pBlockState) {
+        super(pType, pPos, pBlockState);
+    }
 
     @Override
     public void load(@NotNull CompoundTag nbt) {

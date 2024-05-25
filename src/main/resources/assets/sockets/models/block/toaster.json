@@ -1,9 +1,9 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "block/black_concrete",
-		"1": "block/white_concrete",
-		"particle": "block/black_concrete"
+		"0": "minecraft:block/black_concrete",
+		"1": "minecraft:block/white_concrete",
+		"particle": "minecraft:block/white_concrete"
 	},
 	"elements": [
 		{
