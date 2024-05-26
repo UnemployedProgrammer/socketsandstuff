@@ -100,7 +100,7 @@ public class SocketPluggableEntity extends BlockEntity implements TickableBlockE
 
     @Override
     public Vec3 getConnectorPos(BlockState state) {
-        return new Vec3(8,8,8);
+        return new Vec3(0.5,0.5,0.5);
     }
 
     @Override

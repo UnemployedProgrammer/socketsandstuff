@@ -186,7 +186,7 @@ public class ToasterBlockEntity extends SocketPluggableEntity {
 
     @Override
     public Vec3 getConnectorPos(BlockState state) {
-        return new Vec3(5,1,5);
+        return new Vec3(0.3,0.1,0.3);
     }
 
     //TRANSFER SPEED IS GOOD

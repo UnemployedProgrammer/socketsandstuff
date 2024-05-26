@@ -142,6 +142,30 @@ public class SocketBlockEntity extends BlockEntity implements TickableBlockEntit
         return ConnectionState.COULD_NOT_BREAK;
     }
 
+    public SocketPluggableEntity getOtherBlockEntity() {
+        SocketPluggableEntity be = null;
+        if(level.getBlockEntity(new BlockPos(deviceX, deviceY, deviceZ)) instanceof SocketPluggableEntity entity) {
+            be = entity;
+        }
+        return be;
+    }
+
+    public int getDeviceX() {
+        return deviceX;
+    }
+
+    public int getDeviceY() {
+        return deviceY;
+    }
+
+    public int getDeviceZ() {
+        return deviceZ;
+    }
+
+    public boolean isConnected() {
+        return connected;
+    }
+
     public void tryMovingEnergy() {
         //use recieveEnergy(...,false)
         if(connected) {
