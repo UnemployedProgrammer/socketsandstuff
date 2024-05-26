@@ -12,6 +12,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
@@ -19,10 +20,12 @@ import net.minecraftforge.energy.EnergyStorage;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class SocketPluggableEntity extends BlockEntity implements TickableBlockEntity {
+public class SocketPluggableEntity extends BlockEntity implements TickableBlockEntity, SocketPlugable {
 
     private final AdvancedEnergyStorage energy = new AdvancedEnergyStorage(2760, 230, 230, 0);
     private final LazyOptional<AdvancedEnergyStorage> energyOptional = LazyOptional.of(() -> this.energy);
+
+    boolean pluggedIn;
 
     public SocketPluggableEntity(BlockEntityType<?> pType, BlockPos pPos, BlockState pBlockState) {
         super(pType, pPos, pBlockState);
@@ -35,12 +38,16 @@ public class SocketPluggableEntity extends BlockEntity implements TickableBlockE
         if(nbt.contains("energy", Tag.TAG_INT)) {
             this.energy.deserializeNBT(nbt.get("energy"));
         }
+        if(nbt.contains("plugged_in")) {
+            pluggedIn = nbt.getBoolean("plugged_in");
+        }
     }
 
     @Override
     protected void saveAdditional(CompoundTag pTag) {
         super.saveAdditional(pTag);
         pTag.put("energy", this.energy.serializeNBT());
+        pTag.putBoolean("plugged_in", pluggedIn);
     }
 
     @Override
@@ -89,5 +96,23 @@ public class SocketPluggableEntity extends BlockEntity implements TickableBlockE
     @Override
     public void tick() {
         sendUpdate();
+    }
+
+    @Override
+    public Vec3 getConnectorPos(BlockState state) {
+        return new Vec3(8,8,8);
+    }
+
+    @Override
+    public int maxTransferCapacity() {
+        return 20;
+    }
+
+    public void setPluggedIn(boolean pluggedIn) {
+        this.pluggedIn = pluggedIn;
+    }
+
+    public boolean getPluggedIn() {
+        return this.pluggedIn;
     }
 }

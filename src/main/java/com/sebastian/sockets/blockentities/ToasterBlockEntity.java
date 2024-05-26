@@ -21,6 +21,7 @@ import net.minecraft.world.level.block.JukeboxBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
@@ -182,4 +183,11 @@ public class ToasterBlockEntity extends SocketPluggableEntity {
         }
         super.tick();
     }
+
+    @Override
+    public Vec3 getConnectorPos(BlockState state) {
+        return new Vec3(5,1,5);
+    }
+
+    //TRANSFER SPEED IS GOOD
 }

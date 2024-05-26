@@ -27,7 +27,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class ToasterBlock extends Block implements EntityBlock, SocketPlugable {
+public class ToasterBlock extends Block implements EntityBlock {
     public ToasterBlock(Properties pProperties) {
         super(pProperties);
     }
@@ -109,15 +109,5 @@ public class ToasterBlock extends Block implements EntityBlock, SocketPlugable {
     @Override
     public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
         return AllBlockEntities.TOASTER_BLOCK_ENTITY.get().create(blockPos, blockState);
-    }
-
-    @Override
-    public Vec3 getConnectorPos(BlockState state) {
-        return new Vec3(5,1,5);
-    }
-
-    @Override
-    public int maxTransferCapacity() {
-        return 20;
     }
 }

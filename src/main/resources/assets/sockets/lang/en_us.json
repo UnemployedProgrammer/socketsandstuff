@@ -4,5 +4,15 @@
   "block.sockets.toaster": "Toaster",
   "item.sockets.toasted_bread": "Toasted Bread",
   "sounds.sockets.toasterin": "Toaster Activated",
-  "sounds.sockets.toasterpop": "Toaster Pops"
+  "sounds.sockets.toasterpop": "Toaster Pops",
+
+  "error.sockets.socket.shifttobreak": "Hold Shift To Break",
+  "error.sockets.socket.device_connected": "Device is already connected.",
+  "error.sockets.socket.socket_connected": "Socket is already connected.",
+  "error.sockets.socket.be_not_found": "Block not Found",
+  "error.sockets.socket.error": "Connection error occurred. Reason: Unknown",
+  "error.sockets.socket.success": "Device successfully connected.",
+  "error.sockets.socket.broken": "Connection sucessfully broken.",
+  "error.sockets.socket.break_fail": "Failed to Break connection.",
+  "error.sockets.socket.not_connected": "Failed to Break connection because Device or Socket not Connected."
 }
