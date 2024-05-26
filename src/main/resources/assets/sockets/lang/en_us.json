@@ -7,6 +7,7 @@
   "sounds.sockets.toasterpop": "Toaster Pops",
 
   "error.sockets.socket.shifttobreak": "Hold Shift To Break",
+  "error.sockets.socket.firstpos": "First Position Set.",
   "error.sockets.socket.device_connected": "Device is already connected.",
   "error.sockets.socket.socket_connected": "Socket is already connected.",
   "error.sockets.socket.be_not_found": "Block not Found",

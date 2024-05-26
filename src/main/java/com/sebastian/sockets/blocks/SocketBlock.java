@@ -12,6 +12,7 @@ import net.minecraft.data.models.blockstates.VariantProperties;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -103,13 +104,14 @@ public class SocketBlock extends Block implements EntityBlock {
         if(pPlayer.isShiftKeyDown()) {
             if(pLevel.getBlockEntity(pPos) instanceof SocketBlockEntity socketBE) {
                 ConnectionState breakState = socketBE.breakConnection();
-                Component msg = Component.literal(CONNECTION_STATE_PREFIX + breakState.getName()).withStyle(getColorForState(breakState));
+                Component msg = Component.translatable(CONNECTION_STATE_PREFIX + breakState.getName()).withStyle(getColorForState(breakState));
                 pPlayer.sendSystemMessage(msg);
-                pPlayer.playSound(getSoundForState(breakState));
+                pLevel.playSound(null, pPos, getSoundForState(breakState), SoundSource.BLOCKS);
             }
             return InteractionResult.SUCCESS;
         } else {
             pPlayer.sendSystemMessage(Component.translatable(CONNECTION_STATE_PREFIX + ConnectionState.SHIFT_TO_BREAK.getName()).withStyle(ChatFormatting.RED));
+            pLevel.playSound(null, pPos, getSoundForState(ConnectionState.SHIFT_TO_BREAK), SoundSource.BLOCKS);
             return InteractionResult.FAIL;
         }
 

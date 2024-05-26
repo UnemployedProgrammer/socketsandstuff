@@ -9,7 +9,8 @@ public enum ConnectionState {
     BROKEN("broken", false),
     COULD_NOT_BREAK("break_fail", true),
     SHIFT_TO_BREAK("shifttobreak", true),
-    NOT_CONNECTED("not_connected", true);
+    NOT_CONNECTED("not_connected", true),
+    FIRST_POS_SET("firstpos", false);
 
     private String name;
     private Boolean error;
