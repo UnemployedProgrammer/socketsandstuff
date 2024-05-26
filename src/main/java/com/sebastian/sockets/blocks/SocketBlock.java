@@ -5,6 +5,7 @@ import com.sebastian.sockets.blockentities.TickableBlockEntity;
 import com.sebastian.sockets.math.VoxelUtils;
 import com.sebastian.sockets.misc.ConnectionState;
 import com.sebastian.sockets.reg.AllBlockEntities;
+import com.sebastian.sockets.reg.AllItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -101,6 +102,7 @@ public class SocketBlock extends Block implements EntityBlock {
     @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         if(pHand == InteractionHand.OFF_HAND || pLevel.isClientSide()) return InteractionResult.FAIL;
+        if(pPlayer.getItemInHand(pHand).is(AllItems.WIRE_AND_PLUG.get())) return InteractionResult.PASS;
         if(pPlayer.isShiftKeyDown()) {
             if(pLevel.getBlockEntity(pPos) instanceof SocketBlockEntity socketBE) {
                 ConnectionState breakState = socketBE.breakConnection();

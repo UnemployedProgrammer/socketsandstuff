@@ -5,6 +5,7 @@ import com.sebastian.sockets.blockentities.ToasterBlockEntity;
 import com.sebastian.sockets.math.VoxelUtils;
 import com.sebastian.sockets.misc.SocketPlugable;
 import com.sebastian.sockets.reg.AllBlockEntities;
+import com.sebastian.sockets.reg.AllItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
@@ -63,6 +64,7 @@ public class ToasterBlock extends Block implements EntityBlock {
     @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         if(pLevel.isClientSide() || pHand == InteractionHand.OFF_HAND) return InteractionResult.CONSUME;
+        if(pPlayer.getItemInHand(pHand).is(AllItems.WIRE_AND_PLUG.get())) return InteractionResult.PASS;
         if(pLevel.getBlockEntity(pPos) instanceof ToasterBlockEntity bE) {
             if(pPlayer.isShiftKeyDown()) {
                 bE.useToasterKill();

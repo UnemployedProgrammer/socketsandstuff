@@ -151,6 +151,11 @@ public class SocketBlockEntity extends BlockEntity implements TickableBlockEntit
                         int moved = entity.getEnergy().receiveEnergy(entity.maxTransferCapacity(), false);
                         this.getEnergy().removeEnergy(moved);
                     }
+                } else {
+                    connected = false;
+                    deviceX = 0;
+                    deviceY = 0;
+                    deviceZ = 0;
                 }
             }
         }

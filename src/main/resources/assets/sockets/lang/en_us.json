@@ -3,6 +3,7 @@
   "block.sockets.socket": "Socket",
   "block.sockets.toaster": "Toaster",
   "item.sockets.toasted_bread": "Toasted Bread",
+  "item.sockets.wire_and_cable": "Wire and Plug",
   "sounds.sockets.toasterin": "Toaster Activated",
   "sounds.sockets.toasterpop": "Toaster Pops",
 
