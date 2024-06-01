@@ -1,8 +1,10 @@
 package com.sebastian.sockets;
 
 import com.mojang.logging.LogUtils;
+import com.sebastian.sockets.events.ServerEvents;
 import com.sebastian.sockets.reg.*;
 import net.minecraft.client.Minecraft;
+import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
@@ -11,6 +13,7 @@ import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.CampfireBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.api.distmarker.Dist;
@@ -51,9 +54,12 @@ public class Sockets
         AllTabs.CREATIVE_MODE_TABS.register(modEventBus);
         AllBlockEntities.BLOCK_ENTITIES.register(modEventBus);
         AllSounds.SOUND_EVENTS.register(modEventBus);
+        AllParticles.PARTICLE_TYPES.register(modEventBus);
+        AllEnchantments.ENCHANTMENTS.register(modEventBus);
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
+        MinecraftForge.EVENT_BUS.register(ServerEvents.class);
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
@@ -64,7 +70,7 @@ public class Sockets
 
     private void commonSetup(final FMLCommonSetupEvent event)
     {
-
+        //Minecraft.getInstance().particleEngine.register(AllParticles.ENERGY_SPARK.get(), new SimpleParticleType(true));
     }
 
     // Add the example block item to the building blocks tab

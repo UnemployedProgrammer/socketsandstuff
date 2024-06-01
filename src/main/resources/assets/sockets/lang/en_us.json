@@ -3,7 +3,9 @@
   "block.sockets.socket": "Socket",
   "block.sockets.toaster": "Toaster",
   "item.sockets.toasted_bread": "Toasted Bread",
-  "item.sockets.wire_and_cable": "Wire and Plug",
+  "item.sockets.wire_and_plug": "Wire and Plug",
+  "enchantment.sockets.overheating": "Overheating",
+  "enchantment.sockets.molten_fortune": "Molten Fortune",
   "sounds.sockets.toasterin": "Toaster Activated",
   "sounds.sockets.toasterpop": "Toaster Pops",
 
