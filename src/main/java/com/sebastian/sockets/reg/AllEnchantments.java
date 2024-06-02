@@ -14,5 +14,4 @@ public class AllEnchantments {
     public static final DeferredRegister<Enchantment> ENCHANTMENTS = DeferredRegister.create(ForgeRegistries.ENCHANTMENTS, Sockets.MODID);
     public static final RegistryObject<Enchantment> OVERHEATING_ENCHANTMENT = ENCHANTMENTS.register("overheating", () -> new OverheatingEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentCategory.DIGGER, EquipmentSlot.MAINHAND));
     public static final RegistryObject<Enchantment> MOLTEN_FORTUNE = ENCHANTMENTS.register("molten_fortune", () -> new MoltenFortuneEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentCategory.DIGGER, EquipmentSlot.MAINHAND));
-
 }

@@ -32,14 +32,33 @@ public class ServerEvents {
             System.out.println("Has Enchantment!");
             if(event.getPlayer().level() instanceof ServerLevel sLvl) {
                 ItemStack[] drops = BlockUtils.getBlockDrops(sLvl, event.getPos());
-                List<ItemStack> outStack = new ArrayList<>();
+                boolean modified = false;
                 for (ItemStack drop : drops) {
                     System.out.println("First Drop: " + drop.getDescriptionId());
                     event.setCanceled(true);
                     sLvl.destroyBlock(event.getPos(), false);
                     ItemStack rawOut = ItemUtils.getSmeltedItemForStack(sLvl, drop);
-                    ItemEntity out = new ItemEntity(sLvl, event.getPos().getX() + 0.5, event.getPos().getY() + 0.5, event.getPos().getZ() + 0.5, rawOut);
+                    rawOut.setCount(drop.getCount());
+                    System.out.println("got out smelt");
+
+                    //Check for Fortune
+                    System.out.println(drop.getCount());
+                    ItemStack tempStack = new ItemStack(rawOut.getItem());
+                    if(enchantments.get(AllEnchantments.MOLTEN_FORTUNE.get()) != null && !modified) {
+                        int enchLvl = enchantments.get(AllEnchantments.MOLTEN_FORTUNE.get());
+                        float modifier = ItemUtils.getMultiplierForMoltenFortune(enchLvl);
+                        float endFloat = modifier * rawOut.getCount();
+                        int endCount = Math.round(endFloat);
+                        System.out.println("End Count: " + endCount + " | With Modifier: " + modifier + " | So, End Float: " + endFloat + " | Beginner Count: " + rawOut.getCount());
+                        tempStack.setCount(endCount);
+                    }
+
+                    ItemStack tempStack2 = new ItemStack(tempStack.getItem());
+                    tempStack2.setCount(rawOut.getItem() == drop.getItem() ? drop.getCount() : tempStack.getCount());
+
+                    ItemEntity out = new ItemEntity(sLvl, event.getPos().getX() + 0.5, event.getPos().getY() + 0.5, event.getPos().getZ() + 0.5, tempStack2);
                     sLvl.addFreshEntity(out);
+                    rawOut.setCount(1);
                 }
             }
         }
