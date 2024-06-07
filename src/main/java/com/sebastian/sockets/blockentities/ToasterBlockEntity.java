@@ -1,5 +1,6 @@
 package com.sebastian.sockets.blockentities;
 
+import com.sebastian.sockets.customrecipe.RecipeTypes;
 import com.sebastian.sockets.math.RandomMath;
 import com.sebastian.sockets.misc.ToasterRawRecipe;
 import com.sebastian.sockets.reg.AllBlockEntities;
@@ -13,9 +14,12 @@ import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.EnchantedBookItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.EnchantmentInstance;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.JukeboxBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -109,7 +113,6 @@ public class ToasterBlockEntity extends SocketPluggableEntity {
     }
 
     public static List<ToasterRawRecipe> getRecipesList(List<ToasterRawRecipe> starter_or_empty_list_of_recipes) {
-        starter_or_empty_list_of_recipes.add(new ToasterRawRecipe(Items.BREAD, AllItems.TOASTED_BREAD.get()));
         return starter_or_empty_list_of_recipes;
     }
 
@@ -173,7 +176,7 @@ public class ToasterBlockEntity extends SocketPluggableEntity {
     public void sound(boolean in) {
         if(level == null) return;
         float randomValue = RandomMath.getRandomFloat(0.9f, 1.1f);
-        level.playSound(null, worldPosition, in ? AllSounds.TOASTER_POP.get() : AllSounds.TOASTER_IN.get(), SoundSource.BLOCKS, 0.5f, randomValue);
+        level.playSound(null, worldPosition, in ? AllSounds.TOASTER_POP.get() : AllSounds.TOASTER_IN.get(), SoundSource.BLOCKS, 0.8f, randomValue);
     }
 
     @Override

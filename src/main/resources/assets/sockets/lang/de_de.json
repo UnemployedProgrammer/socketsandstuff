@@ -1,0 +1,23 @@
+{
+  "itemGroup.sockets.main": "Sockets!",
+  "block.sockets.socket": "Steckdose",
+  "block.sockets.toaster": "Toaster",
+  "item.sockets.toasted_bread": "Getoastetes Brot",
+  "item.sockets.wire_and_plug": "Kabel und Stecker",
+  "enchantment.sockets.overheating": "Überhitzung",
+  "enchantment.sockets.molten_fortune": "Geschmolzenes Glück",
+  "sounds.sockets.toasterin": "Toaster Aktiviert",
+  "sounds.sockets.toasterpop": "Toaster Plopt",
+  "sounds.sockets.energyzap": "Energie ertönt",
+
+  "error.sockets.socket.shifttobreak": "Halte Umschalttaste um zu Trennen",
+  "error.sockets.socket.firstpos": "Erste Position gesetzt.",
+  "error.sockets.socket.device_connected": "Gerät is schon verbunden.",
+  "error.sockets.socket.socket_connected": "Steckdose is schon verbunden.",
+  "error.sockets.socket.be_not_found": "Block nicht gefunden.",
+  "error.sockets.socket.error": "Verbindungsfehler aufgetreten Grund: Unbekannt",
+  "error.sockets.socket.success": "Gerät erfolgreich verbunden.",
+  "error.sockets.socket.broken": "Verbindung erfolgreich getrennt.",
+  "error.sockets.socket.break_fail": "Fehler beim trennen der Verbindung.",
+  "error.sockets.socket.not_connected": "Verbindung konnte nicht getrennt werden, da Steckdose oder Gerät nicht verbunden ist."
+}

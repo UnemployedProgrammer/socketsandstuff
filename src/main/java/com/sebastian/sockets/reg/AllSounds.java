@@ -14,6 +14,7 @@ public class AllSounds {
 
     public static final RegistryObject<SoundEvent> TOASTER_IN = registerSoundEvents("toaster_in");
     public static final RegistryObject<SoundEvent> TOASTER_POP = registerSoundEvents("toaster_pop");
+    public static final RegistryObject<SoundEvent> ENERGY_ZAP = registerSoundEvents("energy_zap");
 
     private static RegistryObject<SoundEvent> registerSoundEvents(String name) {
         return SOUND_EVENTS.register(name, () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(Sockets.MODID, name)));

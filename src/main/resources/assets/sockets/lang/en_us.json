@@ -8,6 +8,7 @@
   "enchantment.sockets.molten_fortune": "Molten Fortune",
   "sounds.sockets.toasterin": "Toaster Activated",
   "sounds.sockets.toasterpop": "Toaster Pops",
+  "sounds.sockets.energyzap": "Energy Sounds",
 
   "error.sockets.socket.shifttobreak": "Hold Shift To Break",
   "error.sockets.socket.firstpos": "First Position Set.",

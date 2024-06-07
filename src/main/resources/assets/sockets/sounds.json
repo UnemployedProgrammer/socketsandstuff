@@ -10,5 +10,11 @@
     "sounds": [
       "sockets:toaster/pop"
     ]
+  },
+  "energy_zap": {
+    "subtitles": "sounds.sockets.energyzap",
+    "sounds": [
+      "sockets:energy_zap"
+    ]
   }
 }

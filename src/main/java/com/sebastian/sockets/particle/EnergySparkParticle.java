@@ -12,6 +12,7 @@ public class EnergySparkParticle extends TextureSheetParticle {
         return new EnergySparkParticleProvider(spriteSet);
     }
 
+    @OnlyIn(Dist.CLIENT)
     public static class EnergySparkParticleProvider implements ParticleProvider<SimpleParticleType> {
         private final SpriteSet spriteSet;
 
@@ -29,6 +30,7 @@ public class EnergySparkParticle extends TextureSheetParticle {
     protected EnergySparkParticle(ClientLevel world, double x, double y, double z, double vx, double vy, double vz, SpriteSet spriteSet) {
         super(world, x, y, z);
         this.spriteSet = spriteSet;
+        this.pickSprite(spriteSet);
         this.friction = 0.8F;
         this.xd = xd;
         this.yd = yd;
@@ -39,7 +41,6 @@ public class EnergySparkParticle extends TextureSheetParticle {
         this.rCol = 1f;
         this.gCol = 1f;
         this.bCol = 1f;
-        this.pickSprite(spriteSet);
     }
 
     @Override

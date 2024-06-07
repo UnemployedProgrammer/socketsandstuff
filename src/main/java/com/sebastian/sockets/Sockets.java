@@ -1,21 +1,14 @@
 package com.sebastian.sockets;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.mojang.logging.LogUtils;
+import com.sebastian.sockets.customrecipe.ItemStackJsonConverter;
+import com.sebastian.sockets.customrecipe.RecipeFileStructureBase;
+import com.sebastian.sockets.customrecipe.RecipeTypes;
 import com.sebastian.sockets.events.ServerEvents;
 import com.sebastian.sockets.reg.*;
-import net.minecraft.client.Minecraft;
-import net.minecraft.core.particles.SimpleParticleType;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.CampfireBlock;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.item.*;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
@@ -28,9 +21,6 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
 import org.slf4j.Logger;
 
 // The value here should match an entry in the META-INF/mods.toml file
@@ -40,7 +30,8 @@ public class Sockets
     // Define mod id in a common place for everything to reference
     public static final String MODID = "sockets";
     // Directly reference a slf4j logger
-    private static final Logger LOGGER = LogUtils.getLogger();
+    public static final Logger LOGGER = LogUtils.getLogger();
+    public static Gson RECIPEGSON = null;
 
     public Sockets()
     {
@@ -70,7 +61,16 @@ public class Sockets
 
     private void commonSetup(final FMLCommonSetupEvent event)
     {
-        //Minecraft.getInstance().particleEngine.register(AllParticles.ENERGY_SPARK.get(), new SimpleParticleType(true));
+        //Setup GSON
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.registerTypeAdapter(ItemStack.class, new ItemStackJsonConverter());
+        RECIPEGSON = gsonBuilder.create();
+
+
+        //Setup Recipes
+        RecipeTypes.initDefault();
+        RecipeFileStructureBase.addRecipeType(RecipeTypes.TOASTER_RECIPE);
+        RecipeFileStructureBase.checkOrGenerateFolders();
     }
 
     // Add the example block item to the building blocks tab
