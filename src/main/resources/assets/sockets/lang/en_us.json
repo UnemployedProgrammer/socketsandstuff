@@ -19,5 +19,11 @@
   "error.sockets.socket.success": "Device successfully connected.",
   "error.sockets.socket.broken": "Connection sucessfully broken.",
   "error.sockets.socket.break_fail": "Failed to Break connection.",
-  "error.sockets.socket.not_connected": "Failed to Break connection because Device or Socket not Connected."
+  "error.sockets.socket.not_connected": "Failed to Break connection because Device or Socket not Connected.",
+
+  "screen.sockets.error_recipe": "Recipes Failed To Load, Panic:",
+  "screen.sockets.continue_error_recipe": "Continuing risks your items/world getting lost/corrupt.",
+  "screen_button.sockets.continue_error_recipe": "Continue",
+  "screen_button.sockets.quit_error_recipe": "Quit Game",
+  "screen_button.sockets.quitreport_error_recipe": "Quit and Report Bug"
 }

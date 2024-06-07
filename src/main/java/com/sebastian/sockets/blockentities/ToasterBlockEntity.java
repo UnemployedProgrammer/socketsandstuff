@@ -1,5 +1,6 @@
 package com.sebastian.sockets.blockentities;
 
+import com.sebastian.sockets.customrecipe.RecipeFileStructureBase;
 import com.sebastian.sockets.customrecipe.RecipeTypes;
 import com.sebastian.sockets.math.RandomMath;
 import com.sebastian.sockets.misc.ToasterRawRecipe;
@@ -36,6 +37,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class ToasterBlockEntity extends SocketPluggableEntity {
 
@@ -113,6 +115,9 @@ public class ToasterBlockEntity extends SocketPluggableEntity {
     }
 
     public static List<ToasterRawRecipe> getRecipesList(List<ToasterRawRecipe> starter_or_empty_list_of_recipes) {
+        for (Map.Entry<ItemStack, ItemStack> itemStackItemStackEntry : RecipeFileStructureBase.getType(RecipeTypes.TOASTER_RECIPE.id()).getRecipes().entrySet()) {
+            starter_or_empty_list_of_recipes.add(new ToasterRawRecipe(itemStackItemStackEntry.getKey().getItem(), itemStackItemStackEntry.getValue().getItem()));
+        }
         return starter_or_empty_list_of_recipes;
     }
 

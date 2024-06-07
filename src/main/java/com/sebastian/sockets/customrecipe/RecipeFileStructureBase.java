@@ -19,9 +19,14 @@ import java.util.Scanner;
 public class RecipeFileStructureBase {
     public static File CONFIGDIR = FMLPaths.CONFIGDIR.get().toFile();
     public static List<RecipeType> recipeTypes = new ArrayList<>();
+    public static Boolean PANICED = false;
+    public static Boolean PANICED_OK = false;
+    public static String PANIC_MSG = "{RECIPE/REG:SOCKETS/PANIC}~Unknown";
 
     public static void panic(String str) {
         Sockets.LOGGER.error("{RECIPE/REG:SOCKETS/PANIC}~"+str);
+        PANICED = true;
+        PANIC_MSG = "{RECIPE/REG:SOCKETS/PANIC}~"+str;
     }
 
     /////////////////////////////////////////////////
@@ -57,20 +62,20 @@ public class RecipeFileStructureBase {
                         myWriter.close();
                     } else {
                         try {
-                            File myObj = new File("filename.txt");
+                            File myObj = new File(RECIPEFOLDER, recipeType.id()+".json");
                             Scanner myReader = new Scanner(myObj);
                             String data = "";
                             while (myReader.hasNextLine()) {
                                 data = data+myReader.nextLine();
                                 System.out.println(data);
                             }
-                            jsonDecode(data, recipeType);
+                            getType(recipeType.id()).setRecipes(jsonDecode(data, recipeType).getRecipes());
                             myReader.close();
                         } catch (FileNotFoundException e) {
                             panic(e.getLocalizedMessage());
                         }
                     }
-                    for (Map.Entry<ItemStack, ItemStack> itemStackItemStackEntry : recipeType.getRecipes().entrySet()) {
+                    for (Map.Entry<ItemStack, ItemStack> itemStackItemStackEntry : RecipeFileStructureBase.getType(recipeType.id()).getRecipes().entrySet()) {
                         Sockets.LOGGER.debug("Found " + recipeType.id() + " recipe: in- " + ForgeRegistries.ITEMS.getKey(itemStackItemStackEntry.getKey().getItem()).toString() + " , out-  " + ForgeRegistries.ITEMS.getKey(itemStackItemStackEntry.getValue().getItem()).toString());
                     }
                 }
