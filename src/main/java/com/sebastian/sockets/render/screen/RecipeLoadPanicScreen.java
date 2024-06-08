@@ -36,8 +36,8 @@ public class RecipeLoadPanicScreen extends Screen {
         }).bounds(width / 2 - 100, height / 2 + 60, 200, 20).build());
 
         OK = addRenderableWidget(Button.builder(Component.translatable("screen_button.sockets.continue_error_recipe"), (click) -> {
-            minecraft.popGuiLayer();
             RecipeFileStructureBase.PANICED_OK = true;
+            minecraft.popGuiLayer();
         }).bounds(width / 2 - 100, height / 2 + 85, 200, 20).tooltip(Tooltip.create(Component.translatable("screen.sockets.continue_error_recipe"))).build());
         super.init();
     }
