@@ -9,6 +9,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.lang.reflect.Type;
@@ -31,7 +32,14 @@ public class ItemStackJsonConverter implements JsonSerializer<ItemStack>, JsonDe
         String NBT = jsonObject.get("nbt").getAsString();
         int count = jsonObject.get("count").getAsInt();
 
-        Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(itemName)); // Get the item from the registry
+        Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(itemName));
+
+        if (!ForgeRegistries.ITEMS.containsKey(new ResourceLocation(itemName))) {
+            RecipeFileStructureBase.panic("No such item while reading in (caught).");
+            item = Items.BEDROCK;
+        }
+
+         // Get the item from the registry
         if (item == null) {
             RecipeFileStructureBase.panic("No such item while reading in.");
         }

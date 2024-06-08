@@ -24,10 +24,7 @@ public class RecipeLoadPanicScreen extends Screen {
 
     @Override
     protected void init() {
-        System.out.println("init screen start");
         if(minecraft == null) return;
-
-        System.out.println("Init scr");
 
         QUIT_AND_REPORT = addRenderableWidget(Button.builder(Component.translatable("screen_button.sockets.quitreport_error_recipe"), (click) -> {
             Util.getPlatform().openUri("https://github.com/UnemployedProgrammer/socketsandstuff/issues");
