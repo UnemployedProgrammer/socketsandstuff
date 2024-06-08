@@ -19,5 +19,11 @@
   "error.sockets.socket.success": "Gerät erfolgreich verbunden.",
   "error.sockets.socket.broken": "Verbindung erfolgreich getrennt.",
   "error.sockets.socket.break_fail": "Fehler beim trennen der Verbindung.",
-  "error.sockets.socket.not_connected": "Verbindung konnte nicht getrennt werden, da Steckdose oder Gerät nicht verbunden ist."
+  "error.sockets.socket.not_connected": "Verbindung konnte nicht getrennt werden, da Steckdose oder Gerät nicht verbunden ist.",
+
+  "screen.sockets.error_recipe": "Rezepte konnten nicht geladen werden, Fehler:",
+  "screen.sockets.continue_error_recipe": "Fortfahr-Risiko: Verlust/Beschädigung deiner Gegenstände/Welt.",
+  "screen_button.sockets.continue_error_recipe": "Fortfahren",
+  "screen_button.sockets.quit_error_recipe": "Spiel Beenden",
+  "screen_button.sockets.quitreport_error_recipe": "Spiel Beenden und Fehler Melden"
 }
