@@ -1,9 +1,6 @@
 package com.sebastian.sockets.customrecipe;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.google.gson.*;
 import com.sebastian.sockets.Sockets;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -46,13 +43,17 @@ public record RecipeType(String id) {
 
     public static Map<ItemStack, ItemStack> parseJsonToRecipes(String json) {
         Map<ItemStack, ItemStack> recipes = new HashMap<>();
-        JsonArray jsonArray = JsonParser.parseString(json).getAsJsonArray();
+        try {
+            JsonArray jsonArray = JsonParser.parseString(json).getAsJsonArray();
 
-        for (JsonElement element : jsonArray) {
-            JsonObject recipeJson = element.getAsJsonObject();
-            ItemStack in = Sockets.RECIPEGSON.fromJson(recipeJson.get("in"), ItemStack.class);
-            ItemStack out = Sockets.RECIPEGSON.fromJson(recipeJson.get("out"), ItemStack.class);
-            recipes.put(in, out);
+            for (JsonElement element : jsonArray) {
+                JsonObject recipeJson = element.getAsJsonObject();
+                ItemStack in = Sockets.RECIPEGSON.fromJson(recipeJson.get("in"), ItemStack.class);
+                ItemStack out = Sockets.RECIPEGSON.fromJson(recipeJson.get("out"), ItemStack.class);
+                recipes.put(in, out);
+            }
+        } catch (JsonSyntaxException e) {
+            RecipeFileStructureBase.panic("Recipe File Corrupted. File:UNKNOWN");
         }
 
         return recipes;
