@@ -25,5 +25,10 @@
   "screen.sockets.continue_error_recipe": "Continuing risks your items/world getting lost/corrupt.",
   "screen_button.sockets.continue_error_recipe": "Continue",
   "screen_button.sockets.quit_error_recipe": "Quit Game",
-  "screen_button.sockets.quitreport_error_recipe": "Quit and Report Bug"
+  "screen_button.sockets.quitreport_error_recipe": "Quit and Report Bug",
+
+  "screen.sockets.update_available": "Update Available",
+  "screen_button.sockets.ignore_update_available": "Later",
+  "screen_button.sockets.download_update_available": "Downlaod and Install",
+  "screen_button.sockets.changelog_update_available": "View Changelog"
 }

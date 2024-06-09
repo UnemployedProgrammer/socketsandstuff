@@ -2,6 +2,8 @@ package com.sebastian.sockets.events;
 
 import com.sebastian.sockets.customrecipe.RecipeFileStructureBase;
 import com.sebastian.sockets.render.screen.RecipeLoadPanicScreen;
+import com.sebastian.sockets.render.screen.UpdateAvailablePopupScreen;
+import com.sebastian.sockets.updatesystem.CheckForVersion;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.TitleScreen;
@@ -17,6 +19,10 @@ public class ClientEventBus {
         Screen gui = event.getScreen();
 
         if(gui instanceof TitleScreen) {
+            //CheckForVersion.checkGoogleAppsScrServersForModVersion();
+            if(!UpdateAvailablePopupScreen.isOpen) {
+                Minecraft.getInstance().pushGuiLayer(new UpdateAvailablePopupScreen("0.1.2"));
+            }
             if(RecipeFileStructureBase.PANICED && !RecipeFileStructureBase.PANICED_OK) {
                 Minecraft.getInstance().setScreen(new RecipeLoadPanicScreen());
             }

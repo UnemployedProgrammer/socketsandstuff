@@ -29,6 +29,8 @@ public class Sockets
 {
     // Define mod id in a common place for everything to reference
     public static final String MODID = "sockets";
+    public static final String GAMEVER = "1.20.1";
+    public static final String MODVERS = "0.1.1";
     // Directly reference a slf4j logger
     public static final Logger LOGGER = LogUtils.getLogger();
     public static Gson RECIPEGSON = null;
