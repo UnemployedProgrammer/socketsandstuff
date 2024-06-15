@@ -1,6 +1,7 @@
 package com.sebastian.sockets.render.screen;
 
 import com.sebastian.sockets.Sockets;
+import com.sebastian.sockets.updatesystem.UpdateFileDownloader;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -15,6 +16,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraftforge.client.event.ScreenEvent;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.loading.FMLPaths;
 
 public class UpdateAvailablePopupScreen extends Screen {
 
@@ -41,6 +43,7 @@ public class UpdateAvailablePopupScreen extends Screen {
             Sockets.LOGGER.debug("Starting Download...");
             ToastComponent toastcomponent = Minecraft.getInstance().getToasts();
             SystemToast.addOrUpdate(toastcomponent, SystemToast.SystemToastIds.PERIODIC_NOTIFICATION, Component.translatable("update.sockets.start"), (Component)null);
+            UpdateFileDownloader.downloadFinally("https://cdn.modrinth.com/data/LNytGWDc/versions/HNYrbfZZ/create-1.20.1-0.5.1.f.jar", FMLPaths.GAMEDIR.get().toAbsolutePath().toString());
             minecraft.popGuiLayer();
         }).bounds(width / 2 - 60, height / 2 + 10 , 120, 20).build());
 
