@@ -2,6 +2,7 @@ package com.sebastian.sockets.render.screen;
 
 import com.sebastian.sockets.Sockets;
 import com.sebastian.sockets.updatesystem.UpdateFileDownloader;
+import com.sebastian.sockets.updatesystem.Updater;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -27,10 +28,12 @@ public class UpdateAvailablePopupScreen extends Screen {
     public Button Download;
     public Button ViewChangelog;
     public String newVer;
+    public String requesturl = "https://api.modrinth.com/v2/version/";
 
-    public UpdateAvailablePopupScreen(String updateVer) {
+    public UpdateAvailablePopupScreen(String updateVer, String mV) {
         super(Component.translatable("screen.sockets.update_available"));
         this.newVer = updateVer;
+        this.requesturl = "https://api.modrinth.com/v2/version/" + mV;
     }
 
     @Override
@@ -43,7 +46,7 @@ public class UpdateAvailablePopupScreen extends Screen {
             Sockets.LOGGER.debug("Starting Download...");
             ToastComponent toastcomponent = Minecraft.getInstance().getToasts();
             SystemToast.addOrUpdate(toastcomponent, SystemToast.SystemToastIds.PERIODIC_NOTIFICATION, Component.translatable("update.sockets.start"), (Component)null);
-            UpdateFileDownloader.downloadFinally("https://cdn.modrinth.com/data/LNytGWDc/versions/HNYrbfZZ/create-1.20.1-0.5.1.f.jar", FMLPaths.GAMEDIR.get().toAbsolutePath().toString());
+            Updater.InstallAndDownloadUpdate(requesturl);
             minecraft.popGuiLayer();
         }).bounds(width / 2 - 60, height / 2 + 10 , 120, 20).build());
 

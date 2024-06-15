@@ -35,9 +35,6 @@ public class ClientEventBus {
     @SubscribeEvent
     public static void onClientTick(TickEvent.ClientTickEvent event) {
         if(UpdateFileDownloader.downloads) {
-            System.out.println("Download");
-            System.out.println("Update");
-            System.out.println("Download: " + UpdateFileDownloader.downloadPercentage + "%");
             ToastComponent toastcomponent = Minecraft.getInstance().getToasts();
             SystemToast.addOrUpdate(toastcomponent, SystemToast.SystemToastIds.PERIODIC_NOTIFICATION, Component.literal("Download: " + UpdateFileDownloader.downloadPercentage + "%"), (Component)null);
         }

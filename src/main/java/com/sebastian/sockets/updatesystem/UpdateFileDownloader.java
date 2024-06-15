@@ -92,8 +92,8 @@ public class UpdateFileDownloader {
     }
 
     public static void downloadFinally(String fileURL, String destinationPath) {
-        int chunkSize = 1024 * 2; // Size of each chunk to read
-        int delayMillis = 1; // Delay in milliseconds between each chunk read
+        int chunkSize = 1024; // Size of each chunk to read
+        int delayMillis = 5; // Delay in milliseconds between each chunk read
 
         if(deleteOldModFile()) {
 
@@ -118,7 +118,7 @@ public class UpdateFileDownloader {
                 @Override
                 public void run() {
                     ToastComponent toastcomponent = Minecraft.getInstance().getToasts();
-                    SystemToast.addOrUpdate(toastcomponent, SystemToast.SystemToastIds.PERIODIC_NOTIFICATION, Component.literal("Failed to delete Old Mod File°"), (Component) null);
+                    SystemToast.addOrUpdate(toastcomponent, SystemToast.SystemToastIds.PERIODIC_NOTIFICATION, Component.literal("Failed to delete Old Mod File"), (Component) null);
                 }
             });
         }

@@ -43,7 +43,7 @@ public class CheckForVersion {
                             public void run() {
                                 UpdateAvailablePopupScreen.isOpen = true;
                                 CHECKED = true;
-                                Minecraft.getInstance().pushGuiLayer(new UpdateAvailablePopupScreen(version.modversion));
+                                Minecraft.getInstance().pushGuiLayer(new UpdateAvailablePopupScreen(version.modversion, version.mrhversion));
                                 Sockets.LOGGER.debug("Mod isn't UpToDate!");
                             }
                         });
