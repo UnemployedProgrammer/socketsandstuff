@@ -1,5 +1,15 @@
 package com.sebastian.sockets.updatesystem;
 
+import com.sebastian.sockets.Config;
+import com.sebastian.sockets.Sockets;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.components.toasts.SystemToast;
+import net.minecraft.client.gui.components.toasts.ToastComponent;
+import net.minecraft.network.chat.Component;
+import net.minecraftforge.fml.ModList;
+import net.minecraftforge.fml.loading.FMLPaths;
+
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -82,16 +92,49 @@ public class UpdateFileDownloader {
     }
 
     public static void downloadFinally(String fileURL, String destinationPath) {
-        int chunkSize = 1024; // Size of each chunk to read
+        int chunkSize = 1024 * 2; // Size of each chunk to read
         int delayMillis = 1; // Delay in milliseconds between each chunk read
 
-        CompletableFuture<Void> downloadFuture = downloadFileAsync(fileURL, destinationPath, chunkSize, delayMillis);
+        if(deleteOldModFile()) {
 
-        // You can continue doing other tasks while download is in progress
-        downloadFuture.thenRun(() -> {
-            // After download completes, you can access the downloadPercentage variable
-            System.out.println("Final download percentage: " + downloadPercentage + "%");
-            downloads = false;
-        });
+            CompletableFuture<Void> downloadFuture = downloadFileAsync(fileURL, destinationPath, chunkSize, delayMillis);
+
+            // You can continue doing other tasks while download is in progress
+            downloadFuture.thenRun(() -> {
+                // After download completes, you can access the downloadPercentage variable
+                System.out.println("Final download percentage: " + downloadPercentage + "%");
+                downloads = false;
+
+                Minecraft.getInstance().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        ToastComponent toastcomponent = Minecraft.getInstance().getToasts();
+                        SystemToast.addOrUpdate(toastcomponent, SystemToast.SystemToastIds.PERIODIC_NOTIFICATION, Component.literal("Download Complete!"), (Component) null);
+                    }
+                });
+            });
+        } else {
+            Minecraft.getInstance().execute(new Runnable() {
+                @Override
+                public void run() {
+                    ToastComponent toastcomponent = Minecraft.getInstance().getToasts();
+                    SystemToast.addOrUpdate(toastcomponent, SystemToast.SystemToastIds.PERIODIC_NOTIFICATION, Component.literal("Failed to delete Old Mod File°"), (Component) null);
+                }
+            });
+        }
+    }
+
+    public static File makeReadyToDownload() {
+        return FMLPaths.MODSDIR.get().toFile();
+    }
+
+    public static boolean deleteOldModFile() {
+        if(Config.devMode) return false;
+        try {
+            File modfile = ModList.get().getModFileById(Sockets.MODID).getFile().getFilePath().toFile();
+            return modfile.delete();
+        } catch (Exception e) {
+            return false;
+        }
     }
 }
