@@ -29,8 +29,14 @@
 
   "screen.sockets.update_available": "Update Available",
   "screen_button.sockets.ignore_update_available": "Later",
-  "screen_button.sockets.download_update_available": "Downlaod and Install",
+  "screen_button.sockets.download_update_available": "Download and Install",
   "screen_button.sockets.changelog_update_available": "View Changelog",
 
-  "update.sockets.start": "Starting Update..."
+  "update.sockets.start": "Starting Update...",
+  "update.sockets.progress": "Downloading: ",
+  "update.sockets.complete": "Download Complete!",
+  "update.sockets.fail_old_file": "Fail while deleting old mod file!",
+  "update.sockets.restart": "Restart your game for the Update to take effect.",
+  "update.sockets.restart_close": "Close Game and Start ",
+  "update.sockets.restart_close_manually": "Manually"
 }

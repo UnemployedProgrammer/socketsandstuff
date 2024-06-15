@@ -25,5 +25,18 @@
   "screen.sockets.continue_error_recipe": "Fortfahr-Risiko: Verlust/Beschädigung deiner Gegenstände/Welt.",
   "screen_button.sockets.continue_error_recipe": "Fortfahren",
   "screen_button.sockets.quit_error_recipe": "Spiel Beenden",
-  "screen_button.sockets.quitreport_error_recipe": "Spiel Beenden und Fehler Melden"
+  "screen_button.sockets.quitreport_error_recipe": "Spiel Beenden und Fehler Melden",
+
+  "screen.sockets.update_available": "Neue Version Verfügbar",
+  "screen_button.sockets.ignore_update_available": "Später",
+  "screen_button.sockets.download_update_available": "Herunterladen und Installieren",
+  "screen_button.sockets.changelog_update_available": "Änderungsprotokoll ansehen",
+
+  "update.sockets.start": "Update wird gestartet:",
+  "update.sockets.progress": "Herunterladen: ",
+  "update.sockets.complete": "Fertig Heruntergeladen!",
+  "update.sockets.fail_old_file": "Alte Mod-Datei konnte nicht gelöscht werden!",
+  "update.sockets.restart": "Starte das Spiel neu, damit die Änderungen effekt zeigen!",
+  "update.sockets.restart_close": "Spiel schließen und Neustarten: ",
+  "update.sockets.restart_close_manually": "Manuell"
 }

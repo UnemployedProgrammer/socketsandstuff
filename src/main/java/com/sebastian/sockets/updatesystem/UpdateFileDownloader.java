@@ -2,6 +2,7 @@ package com.sebastian.sockets.updatesystem;
 
 import com.sebastian.sockets.Config;
 import com.sebastian.sockets.Sockets;
+import com.sebastian.sockets.render.screen.AfterUpdateRestartGameScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.toasts.SystemToast;
 import net.minecraft.client.gui.components.toasts.ToastComponent;
@@ -109,7 +110,8 @@ public class UpdateFileDownloader {
                     @Override
                     public void run() {
                         ToastComponent toastcomponent = Minecraft.getInstance().getToasts();
-                        SystemToast.addOrUpdate(toastcomponent, SystemToast.SystemToastIds.PERIODIC_NOTIFICATION, Component.literal("Download Complete!"), (Component) null);
+                        SystemToast.addOrUpdate(toastcomponent, SystemToast.SystemToastIds.PERIODIC_NOTIFICATION, Component.translatable("update.sockets.complete"), (Component) null);
+                        Minecraft.getInstance().setScreen(new AfterUpdateRestartGameScreen());
                     }
                 });
             });
@@ -118,7 +120,7 @@ public class UpdateFileDownloader {
                 @Override
                 public void run() {
                     ToastComponent toastcomponent = Minecraft.getInstance().getToasts();
-                    SystemToast.addOrUpdate(toastcomponent, SystemToast.SystemToastIds.PERIODIC_NOTIFICATION, Component.literal("Failed to delete Old Mod File"), (Component) null);
+                    SystemToast.addOrUpdate(toastcomponent, SystemToast.SystemToastIds.PERIODIC_NOTIFICATION, Component.translatable("update.sockets.fail_old_file"), (Component) null);
                 }
             });
         }
