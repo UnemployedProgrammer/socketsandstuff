@@ -29,19 +29,21 @@ public class CheckForVersion {
 
     public static void checkGoogleAppsScrServersForModVersion() {
         if(CHECKED) return;
+        CHECKED = true;
+        if(UpdateAvailablePopupScreen.isOpen) return;
         try {
             CompletableFuture<VersionCheck> future = getVersionAsync();
-            future.thenAccept(playerBan -> {
+            future.thenAccept(version -> {
                 try {
-                    VersionCheck version = getVersion();
                     if (version == null) return;
-                    if(version.modversion == Sockets.MODVERS) {
+                    System.out.println(version.modversion);
+                    if(!(version.modversion == Sockets.MODVERS)) {
                         Minecraft.getInstance().execute(new Runnable() {
                             @Override
                             public void run() {
                                 UpdateAvailablePopupScreen.isOpen = true;
                                 CHECKED = true;
-                                Minecraft.getInstance().setScreen(new UpdateAvailablePopupScreen(version.modversion));
+                                Minecraft.getInstance().pushGuiLayer(new UpdateAvailablePopupScreen(version.modversion));
                                 Sockets.LOGGER.debug("Mod isn't UpToDate!");
                             }
                         });
@@ -81,6 +83,7 @@ public class CheckForVersion {
                 reader.close();
 
                 String res = response.toString();
+                Sockets.LOGGER.debug("Got UPDATE Response: " + res);
 
                 json = new Gson().fromJson(res, VersionCheck.class);
             } else {

@@ -19,10 +19,8 @@ public class ClientEventBus {
         Screen gui = event.getScreen();
 
         if(gui instanceof TitleScreen) {
-            //CheckForVersion.checkGoogleAppsScrServersForModVersion();
-            if(!UpdateAvailablePopupScreen.isOpen) {
-                Minecraft.getInstance().pushGuiLayer(new UpdateAvailablePopupScreen("0.1.2"));
-            }
+            CheckForVersion.checkGoogleAppsScrServersForModVersion();
+            CheckForVersion.CHECKED = true;
             if(RecipeFileStructureBase.PANICED && !RecipeFileStructureBase.PANICED_OK) {
                 Minecraft.getInstance().setScreen(new RecipeLoadPanicScreen());
             }

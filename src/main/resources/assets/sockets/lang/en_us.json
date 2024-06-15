@@ -30,5 +30,7 @@
   "screen.sockets.update_available": "Update Available",
   "screen_button.sockets.ignore_update_available": "Later",
   "screen_button.sockets.download_update_available": "Downlaod and Install",
-  "screen_button.sockets.changelog_update_available": "View Changelog"
+  "screen_button.sockets.changelog_update_available": "View Changelog",
+
+  "update.sockets.start": "Starting Update..."
 }

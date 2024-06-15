@@ -2,10 +2,13 @@ package com.sebastian.sockets.render.screen;
 
 import com.sebastian.sockets.Sockets;
 import net.minecraft.Util;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.ImageWidget;
+import net.minecraft.client.gui.components.toasts.SystemToast;
+import net.minecraft.client.gui.components.toasts.ToastComponent;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -36,12 +39,13 @@ public class UpdateAvailablePopupScreen extends Screen {
 
         Download = addRenderableWidget(Button.builder(Component.translatable("screen_button.sockets.download_update_available"), (btn) -> {
             Sockets.LOGGER.debug("Starting Download...");
+            ToastComponent toastcomponent = Minecraft.getInstance().getToasts();
+            SystemToast.addOrUpdate(toastcomponent, SystemToast.SystemToastIds.PERIODIC_NOTIFICATION, Component.translatable("update.sockets.start"), (Component)null);
             minecraft.popGuiLayer();
         }).bounds(width / 2 - 60, height / 2 + 10 , 120, 20).build());
 
         ViewChangelog = addRenderableWidget(Button.builder(Component.translatable("screen_button.sockets.changelog_update_available"), (btn) -> {
             Util.getPlatform().openUri("https://modrinth.com/mod/sockets-devices/changelog");
-            minecraft.popGuiLayer();
         }).bounds(width / 2 - 60, height / 2 + 32 , 120, 20).build());
 
         Ignore = addRenderableWidget(Button.builder(Component.translatable("screen_button.sockets.ignore_update_available"), (btn) -> {
