@@ -37,7 +37,7 @@ public class CheckForVersion {
                 try {
                     if (version == null) return;
                     System.out.println(version.modversion);
-                    if(!(version.modversion == Sockets.MODVERS)) {
+                    if(!version.modversion.equals(Sockets.MODVERS)) {
                         Minecraft.getInstance().execute(new Runnable() {
                             @Override
                             public void run() {
