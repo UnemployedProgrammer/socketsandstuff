@@ -20,6 +20,7 @@ public class AllTabs {
             .displayItems((parameters, output) -> {
                 output.accept(AllBlocks.SOCKET.get().asItem().getDefaultInstance());
                 output.accept(AllBlocks.TOASTER.get().asItem().getDefaultInstance());
+                output.accept(AllBlocks.MICROWAVE.get().asItem().getDefaultInstance());
                 output.accept(AllItems.TOASTED_BREAD.get().getDefaultInstance());
                 output.accept(AllItems.WIRE_AND_PLUG.get().getDefaultInstance());
                 output.accept(ItemUtils.TabEnchantments.OVERHEATING);

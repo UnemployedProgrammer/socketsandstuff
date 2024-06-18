@@ -1,5 +1,6 @@
 package com.sebastian.sockets.reg;
 
+import com.sebastian.sockets.blocks.MicrowaveBlock;
 import com.sebastian.sockets.blocks.SocketBlock;
 import com.sebastian.sockets.blocks.ToasterBlock;
 import net.minecraft.world.item.BlockItem;
@@ -21,6 +22,7 @@ public class AllBlocks {
 
     public static RegistryObject<Block> SOCKET = registerBlock("socket", () -> new SocketBlock(BlockBehaviour.Properties.copy(Blocks.QUARTZ_BLOCK).noOcclusion()));
     public static RegistryObject<Block> TOASTER = registerBlock("toaster", () -> new ToasterBlock(BlockBehaviour.Properties.copy(Blocks.QUARTZ_BLOCK).noOcclusion()));
+    public static RegistryObject<Block> MICROWAVE = registerBlock("microwave", () -> new MicrowaveBlock(BlockBehaviour.Properties.copy(Blocks.QUARTZ_BLOCK).noOcclusion()));
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);

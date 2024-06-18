@@ -8,6 +8,8 @@ import com.sebastian.sockets.customrecipe.RecipeFileStructureBase;
 import com.sebastian.sockets.customrecipe.RecipeTypes;
 import com.sebastian.sockets.events.ServerEvents;
 import com.sebastian.sockets.reg.*;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.item.*;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
@@ -72,6 +74,7 @@ public class Sockets
         //Setup Recipes
         RecipeTypes.initDefault();
         RecipeFileStructureBase.addRecipeType(RecipeTypes.TOASTER_RECIPE);
+        RecipeFileStructureBase.addRecipeType(RecipeTypes.MICROWAVE_RECIPE);
         RecipeFileStructureBase.checkOrGenerateFolders();
     }
 
@@ -95,7 +98,7 @@ public class Sockets
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event)
         {
-
+            ItemBlockRenderTypes.setRenderLayer(AllBlocks.MICROWAVE.get(), RenderType.translucent());
         }
     }
 }

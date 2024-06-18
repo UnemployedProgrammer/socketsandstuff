@@ -12,13 +12,12 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
 public class RecipeFileStructureBase {
     public static File CONFIGDIR = FMLPaths.CONFIGDIR.get().toFile();
-    public static List<RecipeType> recipeTypes = new ArrayList<>();
+    public static ArrayList<RecipeType> recipeTypes = new ArrayList<>();
     public static Boolean PANICED = false;
     public static Boolean PANICED_OK = false;
     public static String PANIC_MSG = "{RECIPE/REG:SOCKETS/PANIC}~Unknown";
@@ -46,6 +45,10 @@ public class RecipeFileStructureBase {
     ////////////////////////////////////////////////////////
 
     public static void checkOrGenerateFolders() {
+        Sockets.LOGGER.debug("Following AllList-In Recipes(Standard,not Decoded):");
+        for (RecipeType recipeType : recipeTypes) {
+            logRecipeType(recipeType);
+        }
         if(CONFIGDIR.exists()) {
             try {
                 File RECIPEFOLDER = new File(CONFIGDIR, "sockets_recipes");
@@ -56,11 +59,14 @@ public class RecipeFileStructureBase {
                 }
                 for (RecipeType recipeType : recipeTypes) {
                     File type = new File(RECIPEFOLDER, recipeType.id()+".json");
+                    Sockets.LOGGER.debug("Checking " + recipeType.id());
                     if(type.createNewFile()) {
                         FileWriter myWriter = new FileWriter(type);
                         myWriter.write(jsonEncode(recipeType));
+                        Sockets.LOGGER.debug("Created " + recipeType.id()+".json");
                         myWriter.close();
                     } else {
+                        Sockets.LOGGER.debug("Found File " + recipeType.id()+".json");
                         try {
                             File myObj = new File(RECIPEFOLDER, recipeType.id()+".json");
                             Scanner myReader = new Scanner(myObj);
@@ -88,17 +94,33 @@ public class RecipeFileStructureBase {
     }
 
     public static String jsonEncode(RecipeType type) {
-        if(type.id() == "toaster_recipe") {
+        if(type.id().equals("toaster_recipe")) {
             String out =  RecipeType.generateJsonForRecipes(type.getRecipes());
-            Sockets.LOGGER.debug("Encoded Toaster Recipe: " + out);
+            for (Map.Entry<ItemStack, ItemStack> itemStackItemStackEntry : type.getRecipes().entrySet()) {
+                Sockets.LOGGER.debug("Created Toaster recipe: in- " + ForgeRegistries.ITEMS.getKey(itemStackItemStackEntry.getKey().getItem()).toString() + " , out-  " + ForgeRegistries.ITEMS.getKey(itemStackItemStackEntry.getValue().getItem()).toString());
+            }
+            Sockets.LOGGER.debug("Encoded Toaster Recipes: " + out);
+            return out;
+        }
+        if(type.id().equals("microwave_recipe")) {
+            String out =  RecipeType.generateJsonForRecipes(type.getRecipes());
+            for (Map.Entry<ItemStack, ItemStack> itemStackItemStackEntry : type.getRecipes().entrySet()) {
+                Sockets.LOGGER.debug("Created Microwave recipe: in- " + ForgeRegistries.ITEMS.getKey(itemStackItemStackEntry.getKey().getItem()).toString() + " , out-  " + ForgeRegistries.ITEMS.getKey(itemStackItemStackEntry.getValue().getItem()).toString());
+            }
+            Sockets.LOGGER.debug("Encoded Microwave Recipes: " + out);
             return out;
         }
         return "{}";
     }
 
     public static RecipeType jsonDecode(String json, RecipeType type) {
-        if(type.id() == "toaster_recipe") {
+        if(type.id().equals("toaster_recipe")) {
             type.setRecipes(RecipeType.parseJsonToRecipes(json));
+            Sockets.LOGGER.debug("Decoded Toaster Recipes: " + json);
+        }
+        if(type.id().equals("microwave_recipe")) {
+            type.setRecipes(RecipeType.parseJsonToRecipes(json));
+            Sockets.LOGGER.debug("Decoded Toaster Recipes: " + json);
         }
         return type;
     }
@@ -108,5 +130,12 @@ public class RecipeFileStructureBase {
         recipeJson.add("input", Sockets.RECIPEGSON.toJsonTree(in));
         recipeJson.add("output", Sockets.RECIPEGSON.toJsonTree(out));
         return Sockets.RECIPEGSON.toJson(recipeJson);
+    }
+
+    public static void logRecipeType(RecipeType recipeType) {
+        Sockets.LOGGER.debug("Recipe-InList: " + recipeType.id());
+        for (Map.Entry<ItemStack, ItemStack> itemStackItemStackEntry : recipeType.getRecipes().entrySet()) {
+            Sockets.LOGGER.debug("Recipe-InList Recipe: in- " + ForgeRegistries.ITEMS.getKey(itemStackItemStackEntry.getKey().getItem()).toString() + " , out-  " + ForgeRegistries.ITEMS.getKey(itemStackItemStackEntry.getValue().getItem()).toString());
+        }
     }
 }
