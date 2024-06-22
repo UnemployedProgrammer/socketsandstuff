@@ -51,6 +51,7 @@ public class Sockets
         AllSounds.SOUND_EVENTS.register(modEventBus);
         AllParticles.PARTICLE_TYPES.register(modEventBus);
         AllEnchantments.ENCHANTMENTS.register(modEventBus);
+        AllRecipes.SERIALIZERS.register(modEventBus);
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
@@ -66,16 +67,16 @@ public class Sockets
     private void commonSetup(final FMLCommonSetupEvent event)
     {
         //Setup GSON
-        GsonBuilder gsonBuilder = new GsonBuilder();
-        gsonBuilder.registerTypeAdapter(ItemStack.class, new ItemStackJsonConverter());
-        RECIPEGSON = gsonBuilder.create();
+        //GsonBuilder gsonBuilder = new GsonBuilder();
+        //gsonBuilder.registerTypeAdapter(ItemStack.class, new ItemStackJsonConverter());
+        //RECIPEGSON = gsonBuilder.create();
 
 
-        //Setup Recipes
-        RecipeTypes.initDefault();
-        RecipeFileStructureBase.addRecipeType(RecipeTypes.TOASTER_RECIPE);
-        RecipeFileStructureBase.addRecipeType(RecipeTypes.MICROWAVE_RECIPE);
-        RecipeFileStructureBase.checkOrGenerateFolders();
+        //Setup Recipes - DEPRECATED: SWITCHING TO MINECRAFT DEFAULT RECIPE SYSTEM
+        //RecipeTypes.initDefault();
+        //RecipeFileStructureBase.addRecipeType(RecipeTypes.TOASTER_RECIPE);
+        //RecipeFileStructureBase.addRecipeType(RecipeTypes.MICROWAVE_RECIPE);
+        //RecipeFileStructureBase.checkOrGenerateFolders();
     }
 
     // Add the example block item to the building blocks tab

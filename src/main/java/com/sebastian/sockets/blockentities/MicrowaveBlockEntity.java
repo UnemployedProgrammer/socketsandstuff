@@ -3,7 +3,7 @@ package com.sebastian.sockets.blockentities;
 import com.sebastian.sockets.customrecipe.RecipeFileStructureBase;
 import com.sebastian.sockets.customrecipe.RecipeTypes;
 import com.sebastian.sockets.math.RandomMath;
-import com.sebastian.sockets.misc.ToasterRawRecipe;
+import com.sebastian.sockets.misc.SimpleRawRecipe;
 import com.sebastian.sockets.reg.AllBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -98,22 +98,20 @@ public class MicrowaveBlockEntity extends SocketPluggableEntity {
         if(countup == 200) useMicrowaveDone();
     }
 
-    public static List<ToasterRawRecipe> getRecipesList(List<ToasterRawRecipe> starter_or_empty_list_of_recipes) {
-        for (Map.Entry<ItemStack, ItemStack> itemStackItemStackEntry : RecipeFileStructureBase.getType(RecipeTypes.MICROWAVE_RECIPE.id()).getRecipes().entrySet()) {
-            starter_or_empty_list_of_recipes.add(new ToasterRawRecipe(itemStackItemStackEntry.getKey().getItem(), itemStackItemStackEntry.getValue().getItem()));
-        }
+    public static List<SimpleRawRecipe> getRecipesList(List<SimpleRawRecipe> starter_or_empty_list_of_recipes) {
+
         return starter_or_empty_list_of_recipes;
     }
 
     public static Item getOutputItemFromRecipeInput(Item input) {
-        for (ToasterRawRecipe microwaveRawRecipe : getRecipesList(new ArrayList<>())) {
+        for (SimpleRawRecipe microwaveRawRecipe : getRecipesList(new ArrayList<>())) {
            if(microwaveRawRecipe.in() == input) return microwaveRawRecipe.out();
         }
         return null;
     }
 
     public static boolean getIsRecipeFromRecipeInput(Item input) {
-        for (ToasterRawRecipe microwaveRawRecipe : getRecipesList(new ArrayList<>())) {
+        for (SimpleRawRecipe microwaveRawRecipe : getRecipesList(new ArrayList<>())) {
             if(microwaveRawRecipe.in() == input) return true;
         }
         return false;
@@ -133,7 +131,9 @@ public class MicrowaveBlockEntity extends SocketPluggableEntity {
                 level.addFreshEntity(itementity);
                 setItem(ItemStack.EMPTY);
                 sound(false);
-                level.getBlockState(getBlockPos()).setValue(BooleanProperty.create("open"), false);
+                BlockState bs = level.getBlockState(getBlockPos());
+                bs.setValue(BooleanProperty.create("open"), true);
+                level.setBlockAndUpdate(getBlockPos(), bs);
             }
         }
     }
@@ -148,7 +148,9 @@ public class MicrowaveBlockEntity extends SocketPluggableEntity {
             recipe = true;
             out = true;
             sound(true);
-            level.getBlockState(getBlockPos()).setValue(BooleanProperty.create("open"), true);
+            BlockState bs = level.getBlockState(getBlockPos());
+            bs.setValue(BooleanProperty.create("open"), false);
+            level.setBlockAndUpdate(getBlockPos(), bs);
         }
         return out;
     }
@@ -162,7 +164,9 @@ public class MicrowaveBlockEntity extends SocketPluggableEntity {
         recipe = false;
         countup = 0;
         sound(false);
-        level.getBlockState(getBlockPos()).setValue(BooleanProperty.create("open"), false);
+        BlockState bs = level.getBlockState(getBlockPos());
+        bs.setValue(BooleanProperty.create("open"), true);
+        level.setBlockAndUpdate(getBlockPos(), bs);
     }
 
     public void sound(boolean in) {

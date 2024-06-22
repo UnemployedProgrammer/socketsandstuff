@@ -1,0 +1,10 @@
+{
+  "type": "sockets:toast",
+  "ingredient": {
+      "item": "minecraft:sponge"
+  },
+  "result": {
+    "item": "minecraft:wet_sponge",
+    "count": 1
+  }
+}

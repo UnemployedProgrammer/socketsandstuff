@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Scanner;
 
+@Deprecated
 public class RecipeFileStructureBase {
     public static File CONFIGDIR = FMLPaths.CONFIGDIR.get().toFile();
     public static ArrayList<RecipeType> recipeTypes = new ArrayList<>();
@@ -22,6 +23,7 @@ public class RecipeFileStructureBase {
     public static Boolean PANICED_OK = false;
     public static String PANIC_MSG = "{RECIPE/REG:SOCKETS/PANIC}~Unknown";
 
+    @Deprecated
     public static void panic(String str) {
         Sockets.LOGGER.error("{RECIPE/REG:SOCKETS/PANIC}~"+str);
         PANICED = true;
@@ -30,6 +32,7 @@ public class RecipeFileStructureBase {
 
     /////////////////////////////////////////////////
 
+    @Deprecated
     public static RecipeType getType(String id) {
         RecipeType crnt = null;
         for (RecipeType recipeType : recipeTypes) {
@@ -38,12 +41,14 @@ public class RecipeFileStructureBase {
         return crnt;
     }
 
+    @Deprecated
     public static void addRecipeType(RecipeType type) {
         recipeTypes.add(type);
     }
 
     ////////////////////////////////////////////////////////
 
+    @Deprecated
     public static void checkOrGenerateFolders() {
         Sockets.LOGGER.debug("Following AllList-In Recipes(Standard,not Decoded):");
         for (RecipeType recipeType : recipeTypes) {
@@ -93,6 +98,7 @@ public class RecipeFileStructureBase {
         }
     }
 
+    @Deprecated
     public static String jsonEncode(RecipeType type) {
         if(type.id().equals("toaster_recipe")) {
             String out =  RecipeType.generateJsonForRecipes(type.getRecipes());
@@ -113,6 +119,7 @@ public class RecipeFileStructureBase {
         return "{}";
     }
 
+    @Deprecated
     public static RecipeType jsonDecode(String json, RecipeType type) {
         if(type.id().equals("toaster_recipe")) {
             type.setRecipes(RecipeType.parseJsonToRecipes(json));
@@ -125,6 +132,7 @@ public class RecipeFileStructureBase {
         return type;
     }
 
+    @Deprecated
     public static String generateJsonForRecipe(ItemStack in, ItemStack out) {
         JsonObject recipeJson = new JsonObject();
         recipeJson.add("input", Sockets.RECIPEGSON.toJsonTree(in));
@@ -132,6 +140,7 @@ public class RecipeFileStructureBase {
         return Sockets.RECIPEGSON.toJson(recipeJson);
     }
 
+    @Deprecated
     public static void logRecipeType(RecipeType recipeType) {
         Sockets.LOGGER.debug("Recipe-InList: " + recipeType.id());
         for (Map.Entry<ItemStack, ItemStack> itemStackItemStackEntry : recipeType.getRecipes().entrySet()) {

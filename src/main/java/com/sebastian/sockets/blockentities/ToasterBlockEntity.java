@@ -1,43 +1,29 @@
 package com.sebastian.sockets.blockentities;
 
-import com.sebastian.sockets.customrecipe.RecipeFileStructureBase;
-import com.sebastian.sockets.customrecipe.RecipeTypes;
 import com.sebastian.sockets.math.RandomMath;
-import com.sebastian.sockets.misc.ToasterRawRecipe;
+import com.sebastian.sockets.misc.SimpleRawRecipe;
+import com.sebastian.sockets.recipe.ToasterRecipe;
 import com.sebastian.sockets.reg.AllBlockEntities;
-import com.sebastian.sockets.reg.AllItems;
+import com.sebastian.sockets.reg.AllRecipes;
 import com.sebastian.sockets.reg.AllSounds;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
-import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.item.EnchantedBookItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.enchantment.EnchantmentInstance;
-import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.JukeboxBlock;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.energy.EnergyStorage;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class ToasterBlockEntity extends SocketPluggableEntity {
 
@@ -114,23 +100,28 @@ public class ToasterBlockEntity extends SocketPluggableEntity {
         if(countup == 200) useToasterDone();
     }
 
-    public static List<ToasterRawRecipe> getRecipesList(List<ToasterRawRecipe> starter_or_empty_list_of_recipes) {
-        for (Map.Entry<ItemStack, ItemStack> itemStackItemStackEntry : RecipeFileStructureBase.getType(RecipeTypes.TOASTER_RECIPE.id()).getRecipes().entrySet()) {
-            starter_or_empty_list_of_recipes.add(new ToasterRawRecipe(itemStackItemStackEntry.getKey().getItem(), itemStackItemStackEntry.getValue().getItem()));
+    public static List<SimpleRawRecipe> getRecipesList(List<SimpleRawRecipe> starter_or_empty_list_of_recipes, Level lvl) {
+        //for (Map.Entry<ItemStack, ItemStack> itemStackItemStackEntry : RecipeFileStructureBase.getType(RecipeTypes.TOASTER_RECIPE.id()).getRecipes().entrySet()) {
+        //            starter_or_empty_list_of_recipes.add(new ToasterRawRecipe(itemStackItemStackEntry.getKey().getItem(), itemStackItemStackEntry.getValue().getItem()));
+        //        }
+        List<ToasterRecipe> recipes = Minecraft.getInstance().level.getRecipeManager().getAllRecipesFor(ToasterRecipe.Type.INSTANCE);
+        for (ToasterRecipe recipe : recipes) {
+            starter_or_empty_list_of_recipes.add(new SimpleRawRecipe(recipe.getInputItem().getItems()[0].getItem(), recipe.getOutput().getItem()));
         }
+
         return starter_or_empty_list_of_recipes;
     }
 
-    public static Item getOutputItemFromRecipeInput(Item input) {
-        for (ToasterRawRecipe toasterRawRecipe : getRecipesList(new ArrayList<>())) {
-           if(toasterRawRecipe.in() == input) return toasterRawRecipe.out();
+    public static Item getOutputItemFromRecipeInput(Item input, Level lvl) {
+        for (SimpleRawRecipe simpleRawRecipe : getRecipesList(new ArrayList<>(), lvl)) {
+           if(simpleRawRecipe.in() == input) return simpleRawRecipe.out();
         }
         return null;
     }
 
-    public static boolean getIsRecipeFromRecipeInput(Item input) {
-        for (ToasterRawRecipe toasterRawRecipe : getRecipesList(new ArrayList<>())) {
-            if(toasterRawRecipe.in() == input) return true;
+    public static boolean getIsRecipeFromRecipeInput(Item input, Level lvl) {
+        for (SimpleRawRecipe simpleRawRecipe : getRecipesList(new ArrayList<>(), lvl)) {
+            if(simpleRawRecipe.in() == input) return true;
         }
         return false;
     }
@@ -140,7 +131,7 @@ public class ToasterBlockEntity extends SocketPluggableEntity {
         recipe = false;
         countup = 0;
         if(level != null) {
-            Item out = getOutputItemFromRecipeInput(getItem().getItem());
+            Item out = getOutputItemFromRecipeInput(getItem().getItem(), level);
             if(out == null) return;
             ItemStack itemstackout = new ItemStack(out);
             if(itemstackout != null) {
@@ -158,7 +149,7 @@ public class ToasterBlockEntity extends SocketPluggableEntity {
     public boolean useToasterBegin(Item item) {
         if(recipe) return false;
         boolean out = false;
-        if(getIsRecipeFromRecipeInput(item)) {
+        if(getIsRecipeFromRecipeInput(item, level)) {
             setItem(new ItemStack(item));
             recipe = true;
             out = true;

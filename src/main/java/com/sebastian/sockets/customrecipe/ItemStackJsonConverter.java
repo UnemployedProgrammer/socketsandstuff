@@ -14,6 +14,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import java.lang.reflect.Type;
 
+@Deprecated
 public class ItemStackJsonConverter implements JsonSerializer<ItemStack>, JsonDeserializer<ItemStack> {
 
     @Override
