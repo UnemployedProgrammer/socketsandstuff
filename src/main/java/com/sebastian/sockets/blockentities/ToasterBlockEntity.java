@@ -4,6 +4,7 @@ import com.sebastian.sockets.math.RandomMath;
 import com.sebastian.sockets.misc.SimpleRawRecipe;
 import com.sebastian.sockets.recipe.ToasterRecipe;
 import com.sebastian.sockets.reg.AllBlockEntities;
+import com.sebastian.sockets.reg.AllItems;
 import com.sebastian.sockets.reg.AllRecipes;
 import com.sebastian.sockets.reg.AllSounds;
 import net.minecraft.client.Minecraft;
@@ -13,6 +14,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
@@ -104,10 +106,13 @@ public class ToasterBlockEntity extends SocketPluggableEntity {
         //for (Map.Entry<ItemStack, ItemStack> itemStackItemStackEntry : RecipeFileStructureBase.getType(RecipeTypes.TOASTER_RECIPE.id()).getRecipes().entrySet()) {
         //            starter_or_empty_list_of_recipes.add(new ToasterRawRecipe(itemStackItemStackEntry.getKey().getItem(), itemStackItemStackEntry.getValue().getItem()));
         //        }
-        List<ToasterRecipe> recipes = Minecraft.getInstance().level.getRecipeManager().getAllRecipesFor(ToasterRecipe.Type.INSTANCE);
-        for (ToasterRecipe recipe : recipes) {
-            starter_or_empty_list_of_recipes.add(new SimpleRawRecipe(recipe.getInputItem().getItems()[0].getItem(), recipe.getOutput().getItem()));
-        }
+
+        //List<ToasterRecipe> recipes = Minecraft.getInstance().level.getRecipeManager().getAllRecipesFor(ToasterRecipe.Type.INSTANCE);
+        //        for (ToasterRecipe recipe : recipes) {
+        //            starter_or_empty_list_of_recipes.add(new SimpleRawRecipe(recipe.getInputItem().getItems()[0].getItem(), recipe.getOutput().getItem()));
+        //        }
+
+        starter_or_empty_list_of_recipes.add(new SimpleRawRecipe(Items.BREAD, AllItems.TOASTED_BREAD.get()));
 
         return starter_or_empty_list_of_recipes;
     }

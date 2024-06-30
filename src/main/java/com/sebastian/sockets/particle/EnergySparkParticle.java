@@ -27,6 +27,7 @@ public class EnergySparkParticle extends TextureSheetParticle {
 
     private final SpriteSet spriteSet;
 
+    @OnlyIn(Dist.CLIENT)
     protected EnergySparkParticle(ClientLevel world, double x, double y, double z, double vx, double vy, double vz, SpriteSet spriteSet) {
         super(world, x, y, z);
         this.spriteSet = spriteSet;

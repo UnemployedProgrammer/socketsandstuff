@@ -8,6 +8,8 @@ import com.sebastian.sockets.reg.AllBlockEntities;
 import com.sebastian.sockets.reg.AllItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -25,6 +27,7 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.common.Tags;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -43,21 +46,23 @@ public class MicrowaveBlock extends Block implements EntityBlock {
 
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        switch (pState.getValue(FACING)) {
-            case NORTH -> {
-                return NORTH;
+        if(pState.getValue(OPENED)) {
+            switch (pState.getValue(FACING)) {
+                case EAST, WEST -> {
+                    return VoxelUtils.MicrowaveShapes.OPEN_EAST;
+                }
+                default -> {
+                    return VoxelUtils.MicrowaveShapes.OPEN_NORTH;
+                }
             }
-            case EAST -> {
-                return EAST;
-            }
-            case SOUTH -> {
-                return SOUTH;
-            }
-            case WEST -> {
-                return WEST;
-            }
-            default -> {
-                return NORTH;
+        } else {
+            switch (pState.getValue(FACING)) {
+                case EAST, WEST -> {
+                    return VoxelUtils.MicrowaveShapes.CLOSED_EAST;
+                }
+                default -> {
+                    return VoxelUtils.MicrowaveShapes.CLOSED_NORTH;
+                }
             }
         }
     }
@@ -67,11 +72,16 @@ public class MicrowaveBlock extends Block implements EntityBlock {
         if(pLevel.isClientSide() || pHand == InteractionHand.OFF_HAND) return InteractionResult.CONSUME;
         if(pPlayer.getItemInHand(pHand).is(AllItems.WIRE_AND_PLUG.get())) return InteractionResult.PASS;
         if(pLevel.getBlockEntity(pPos) instanceof MicrowaveBlockEntity bE) {
+            if(pPlayer.getItemInHand(pHand).is(ItemTags.DOORS)) {
+                bE.toggleDoor();
+                return InteractionResult.SUCCESS;
+            }
             if(pPlayer.isShiftKeyDown()) {
                 bE.useMicrowaveKill();
             } else {
                 if(bE.useMicrowaveBegin(pPlayer.getItemInHand(pHand).getItem())) {
                     pPlayer.getItemInHand(pHand).shrink(1);
+                    System.out.println("WORKED");
                 }
             }
         }
@@ -92,7 +102,7 @@ public class MicrowaveBlock extends Block implements EntityBlock {
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
         Direction dir = pContext.getHorizontalDirection().getOpposite();
-        return this.defaultBlockState().setValue(FACING, dir);
+        return this.defaultBlockState().setValue(FACING, dir).setValue(OPENED, true);
     }
     @Override
     public BlockState rotate(BlockState pState, Rotation pRotation) {

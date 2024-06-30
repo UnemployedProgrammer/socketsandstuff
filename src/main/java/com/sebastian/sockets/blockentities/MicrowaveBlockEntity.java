@@ -1,15 +1,23 @@
 package com.sebastian.sockets.blockentities;
 
+import com.sebastian.sockets.blocks.MicrowaveBlock;
 import com.sebastian.sockets.customrecipe.RecipeFileStructureBase;
 import com.sebastian.sockets.customrecipe.RecipeTypes;
 import com.sebastian.sockets.math.RandomMath;
 import com.sebastian.sockets.misc.SimpleRawRecipe;
 import com.sebastian.sockets.reg.AllBlockEntities;
+import com.sebastian.sockets.reg.AllEnchantments;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.EnchantedBookItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.EnchantmentInstance;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.Vec3;
@@ -98,21 +106,31 @@ public class MicrowaveBlockEntity extends SocketPluggableEntity {
         if(countup == 200) useMicrowaveDone();
     }
 
-    public static List<SimpleRawRecipe> getRecipesList(List<SimpleRawRecipe> starter_or_empty_list_of_recipes) {
+    public static List<SimpleRawRecipe.ItemStackBased> getRecipesList(List<SimpleRawRecipe.ItemStackBased> starter_or_empty_list_of_recipes) {
+
+        starter_or_empty_list_of_recipes.add(new SimpleRawRecipe.ItemStackBased(EnchantedBookItem.createForEnchantment(new EnchantmentInstance(Enchantments.BLOCK_FORTUNE, 1)), EnchantedBookItem.createForEnchantment(new EnchantmentInstance(AllEnchantments.MOLTEN_FORTUNE.get(), 1))));
+        starter_or_empty_list_of_recipes.add(new SimpleRawRecipe.ItemStackBased(EnchantedBookItem.createForEnchantment(new EnchantmentInstance(Enchantments.BLOCK_FORTUNE, 2)), EnchantedBookItem.createForEnchantment(new EnchantmentInstance(AllEnchantments.MOLTEN_FORTUNE.get(), 2))));
+        starter_or_empty_list_of_recipes.add(new SimpleRawRecipe.ItemStackBased(EnchantedBookItem.createForEnchantment(new EnchantmentInstance(Enchantments.BLOCK_FORTUNE, 3)), EnchantedBookItem.createForEnchantment(new EnchantmentInstance(AllEnchantments.MOLTEN_FORTUNE.get(), 3))));
+        starter_or_empty_list_of_recipes.add(new SimpleRawRecipe.ItemStackBased(EnchantedBookItem.createForEnchantment(new EnchantmentInstance(AllEnchantments.MOLTEN_FORTUNE.get(), 3)), EnchantedBookItem.createForEnchantment(new EnchantmentInstance(AllEnchantments.MOLTEN_FORTUNE.get(), 4))));
+        starter_or_empty_list_of_recipes.add(new SimpleRawRecipe.ItemStackBased(EnchantedBookItem.createForEnchantment(new EnchantmentInstance(AllEnchantments.MOLTEN_FORTUNE.get(), 4)), EnchantedBookItem.createForEnchantment(new EnchantmentInstance(AllEnchantments.MOLTEN_FORTUNE.get(), 5))));
+        starter_or_empty_list_of_recipes.add(new SimpleRawRecipe.ItemStackBased(EnchantedBookItem.createForEnchantment(new EnchantmentInstance(AllEnchantments.MOLTEN_FORTUNE.get(), 5)), EnchantedBookItem.createForEnchantment(new EnchantmentInstance(AllEnchantments.OVERHEATING_ENCHANTMENT.get(), 5))));
+        starter_or_empty_list_of_recipes.add(new SimpleRawRecipe.ItemStackBased(new ItemStack(Items.POTATO), new ItemStack(Items.BAKED_POTATO)));
 
         return starter_or_empty_list_of_recipes;
     }
 
-    public static Item getOutputItemFromRecipeInput(Item input) {
-        for (SimpleRawRecipe microwaveRawRecipe : getRecipesList(new ArrayList<>())) {
-           if(microwaveRawRecipe.in() == input) return microwaveRawRecipe.out();
+    public static ItemStack getOutputItemFromRecipeInput(ItemStack input) {
+        for (SimpleRawRecipe.ItemStackBased microwaveRawRecipe : getRecipesList(new ArrayList<>())) {
+           if(microwaveRawRecipe.in().copyWithCount(1).equals(input.copyWithCount(1),true)) return microwaveRawRecipe.out().copyWithCount(1);
         }
         return null;
     }
 
-    public static boolean getIsRecipeFromRecipeInput(Item input) {
-        for (SimpleRawRecipe microwaveRawRecipe : getRecipesList(new ArrayList<>())) {
-            if(microwaveRawRecipe.in() == input) return true;
+    public static boolean getIsRecipeFromRecipeInput(ItemStack input) {
+        for (SimpleRawRecipe.ItemStackBased microwaveRawRecipe : getRecipesList(new ArrayList<>())) {
+            if(input.copyWithCount(1).equals(microwaveRawRecipe.in().copyWithCount(1),true)) return true;
+
+            System.out.println(input.copyWithCount(1).equals(microwaveRawRecipe.in().copyWithCount(1),true));
         }
         return false;
     }
@@ -122,18 +140,17 @@ public class MicrowaveBlockEntity extends SocketPluggableEntity {
         recipe = false;
         countup = 0;
         if(level != null) {
-            Item out = getOutputItemFromRecipeInput(getItem().getItem());
+            ItemStack out = getOutputItemFromRecipeInput(getItem().copyWithCount(1));
             if(out == null) return;
-            ItemStack itemstackout = new ItemStack(out);
+            ItemStack itemstackout = out; //Easy for Copying
             if(itemstackout != null) {
-                ItemEntity itementity = new ItemEntity(level, worldPosition.getX(), worldPosition.getY() + 1, worldPosition.getZ(), itemstackout);
+                ItemEntity itementity = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 0.1, worldPosition.getZ() + 0.5, itemstackout);
                 itementity.setDefaultPickUpDelay();
                 level.addFreshEntity(itementity);
                 setItem(ItemStack.EMPTY);
                 sound(false);
-                BlockState bs = level.getBlockState(getBlockPos());
-                bs.setValue(BooleanProperty.create("open"), true);
-                level.setBlockAndUpdate(getBlockPos(), bs);
+                level.setBlockAndUpdate(getBlockPos(), level.getBlockState(getBlockPos())
+                        .setValue(MicrowaveBlock.OPENED, true));
             }
         }
     }
@@ -142,37 +159,49 @@ public class MicrowaveBlockEntity extends SocketPluggableEntity {
      -- Toaster Start Function -- */
     public boolean useMicrowaveBegin(Item item) {
         if(recipe) return false;
+        if(!level.getBlockState(getBlockPos()).getValue(MicrowaveBlock.OPENED)) return false;
         boolean out = false;
-        if(getIsRecipeFromRecipeInput(item)) {
+        if(getIsRecipeFromRecipeInput(new ItemStack(item))) {
             setItem(new ItemStack(item));
             recipe = true;
             out = true;
             sound(true);
-            BlockState bs = level.getBlockState(getBlockPos());
-            bs.setValue(BooleanProperty.create("open"), false);
-            level.setBlockAndUpdate(getBlockPos(), bs);
+            level.setBlockAndUpdate(getBlockPos(), level.getBlockState(getBlockPos())
+                    .setValue(MicrowaveBlock.OPENED, false));
         }
         return out;
     }
 
     public void useMicrowaveKill() {
         if(!recipe || getItem().isEmpty()) return;
-        ItemEntity itementity = new ItemEntity(level, worldPosition.getX(), worldPosition.getY() + 1, worldPosition.getZ(), getItem());
+        ItemEntity itementity = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 0.1, worldPosition.getZ() + 0.5, getItem());
         itementity.setDefaultPickUpDelay();
         level.addFreshEntity(itementity);
         setItem(ItemStack.EMPTY);
         recipe = false;
         countup = 0;
         sound(false);
-        BlockState bs = level.getBlockState(getBlockPos());
-        bs.setValue(BooleanProperty.create("open"), true);
-        level.setBlockAndUpdate(getBlockPos(), bs);
+        level.setBlockAndUpdate(getBlockPos(), level.getBlockState(getBlockPos())
+        .setValue(MicrowaveBlock.OPENED, true));
+    }
+
+    public void toggleDoor() {
+        if(recipe) return;
+        if(level.getBlockState(getBlockPos()).getValue(MicrowaveBlock.OPENED)) {
+            level.setBlockAndUpdate(getBlockPos(), level.getBlockState(getBlockPos())
+                    .setValue(MicrowaveBlock.OPENED, false));
+            sound(false);
+        } else {
+            level.setBlockAndUpdate(getBlockPos(), level.getBlockState(getBlockPos())
+                    .setValue(MicrowaveBlock.OPENED, true));
+            sound(true);
+        }
     }
 
     public void sound(boolean in) {
         if(level == null) return;
         float randomValue = RandomMath.getRandomFloat(0.9f, 1.1f);
-        //level.playSound(null, worldPosition, in ? AllSounds.TOASTER_POP.get() : AllSounds.TOASTER_IN.get(), SoundSource.BLOCKS, 0.8f, randomValue);
+        level.playSound(null, worldPosition, in ? SoundEvents.BAMBOO_WOOD_DOOR_OPEN : SoundEvents.BAMBOO_WOOD_DOOR_CLOSE, SoundSource.BLOCKS, 0.8f, randomValue);
     }
 
     @Override

@@ -19,14 +19,7 @@
       "x": 0,
       "y": 270
     },
-    "facing=down,open=false": {
-      "model": "sockets:block/microwave_opened",
-      "x": 0
-    },
-    "facing=up,open=false": {
-      "model": "sockets:block/microwave_opened",
-      "x": 0
-    },
+
 
     "facing=north,open=true": {
       "model": "sockets:block/microwave_opened",
@@ -37,6 +30,7 @@
       "x": 0,
       "y": 90
     },
+
     "facing=south,open=true": {
       "model": "sockets:block/microwave_opened",
       "x": 0,
@@ -46,14 +40,6 @@
       "model": "sockets:block/microwave_opened",
       "x": 0,
       "y": 270
-    },
-    "facing=down,open=true": {
-      "model": "sockets:block/microwave_opened",
-      "x": 0
-    },
-    "facing=up,open=true": {
-      "model": "sockets:block/microwave_opened",
-      "x": 0
     }
   }
 }

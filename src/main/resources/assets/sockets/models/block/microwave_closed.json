@@ -1,7 +1,7 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "sockets:block/microwave",
+		"0": "sockets:block/microwave_closed",
 		"1": "minecraft:block/black_concrete",
 		"2": "minecraft:block/quartz_block_side",
 		"particle": "sockets:block/microwave"
