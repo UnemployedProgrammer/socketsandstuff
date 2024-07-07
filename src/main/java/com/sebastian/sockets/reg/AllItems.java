@@ -1,6 +1,7 @@
 package com.sebastian.sockets.reg;
 
 import com.sebastian.sockets.Sockets;
+import com.sebastian.sockets.items.SmartPhoneItem;
 import com.sebastian.sockets.items.WireAndPlug;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
@@ -16,4 +17,6 @@ public class AllItems {
             () -> new Item(new Item.Properties().food((new FoodProperties.Builder()).nutrition(8).saturationMod(0.8F).build())));
     public static final RegistryObject<WireAndPlug> WIRE_AND_PLUG = ITEMS.register("wire_and_plug",
             () -> new WireAndPlug(new Item.Properties()));
+    public static final RegistryObject<SmartPhoneItem> SMART_PHONE = ITEMS.register("smartphone",
+            () -> new SmartPhoneItem(new Item.Properties()));
 }

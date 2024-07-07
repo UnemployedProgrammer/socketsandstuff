@@ -1,6 +1,5 @@
 package com.sebastian.sockets.smartphonesystem;
 
-import jdk.incubator.vector.VectorOperators;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;

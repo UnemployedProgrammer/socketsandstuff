@@ -1,17 +1,23 @@
 package com.sebastian.sockets.smartphonesystem;
 
 import net.minecraft.client.gui.components.AbstractWidget;
-import net.minecraft.server.commands.TimeCommand;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.world.level.Level;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class SmartPhoneKernel {
     public int BATTERY_PERCENTAGE = 0;
-    public SmartPhoneApp currentApp;
+    public SmartPhoneApp currentApp = new SmartPhoneApp(this);
     public boolean screenon = false;
     public HashMap<String,String> storage = new HashMap<String, String>();
+    public SmartPhoneScreen phoneScreen;
+
+    public SmartPhoneKernel() {
+
+    }
 
     public void launchApplication(SmartPhoneApp app) {
         currentApp = app;
@@ -23,6 +29,10 @@ public class SmartPhoneKernel {
 
     public void onTurnOn() {
         screenon = true;
+    }
+
+    public void removeWidgets() {
+        phoneScreen.removeWidgets(collectWidgets(new ArrayList<>()));
     }
 
     public void onTurnOff() {
@@ -58,12 +68,18 @@ public class SmartPhoneKernel {
     }
 
     public List<AbstractWidget> collectWidgets(List<AbstractWidget> list) {
-        List<AbstractWidget> listAfterApp = currentApp.init(list);
-        return listAfterApp;
+        if(getState() == SmartPhoneState.RUNNING) {
+            return currentApp.init(list);
+        }
+        return list;
     }
 
     public SmartPhoneState getState() {
-       if(screenon) return SmartPhoneState.OFF; else return SmartPhoneState.RUNNING;
+        if(screenon) {
+            return SmartPhoneState.RUNNING;
+        } else {
+            return SmartPhoneState.OFF;
+        }
     }
 
     public void draw(UIGraphics gg, SmartPhoneState state) {
@@ -73,6 +89,7 @@ public class SmartPhoneKernel {
                 currentApp.render(gg);
             }
             default -> {
+                System.out.println("Draw Nothing");
                 gg.drawRectangle(getMinXApp(), getMinYApp(), getMaxXApp(), getMaxYApp(), 0x000000);
             }
         }

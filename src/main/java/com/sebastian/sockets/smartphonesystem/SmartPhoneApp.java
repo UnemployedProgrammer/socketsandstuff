@@ -24,7 +24,11 @@ public class SmartPhoneApp {
     }
 
     public void saveToStorage(String key, String value) {
-        kernel.storage.put(key, value);
+        if(hasStorageKey(key)) {
+            kernel.storage.replace(key, value);
+        } else {
+            kernel.storage.put(key, value);
+        }
     }
 
     public String getFromStorage(String key) {
