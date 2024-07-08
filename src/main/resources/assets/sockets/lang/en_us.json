@@ -2,6 +2,7 @@
   "itemGroup.sockets.main": "Sockets",
   "block.sockets.socket": "Socket",
   "block.sockets.toaster": "Toaster",
+  "block.sockets.microwave": "Microwave",
   "item.sockets.toasted_bread": "Toasted Bread",
   "item.sockets.wire_and_plug": "Wire and Plug",
   "item.sockets.smartphone": "Smartphone",

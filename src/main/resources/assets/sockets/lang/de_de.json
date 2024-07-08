@@ -2,6 +2,7 @@
   "itemGroup.sockets.main": "Sockets!",
   "block.sockets.socket": "Steckdose",
   "block.sockets.toaster": "Toaster",
+  "block.sockets.microwave": "Mikrowelle",
   "item.sockets.toasted_bread": "Getoastetes Brot",
   "item.sockets.wire_and_plug": "Kabel und Stecker",
   "item.sockets.smartphone": "Handy",

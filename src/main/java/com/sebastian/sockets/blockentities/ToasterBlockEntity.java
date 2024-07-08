@@ -122,8 +122,19 @@ public class ToasterBlockEntity extends SocketPluggableEntity {
 
     public static List<Item> boomItems() {
         List<Item> list = new ArrayList<>();
+        list.add(Items.IRON_SWORD);
         list.add(Items.IRON_PICKAXE);
+        list.add(Items.IRON_AXE);
+        list.add(Items.IRON_SHOVEL);
+        list.add(Items.IRON_HOE);
+        list.add(Items.IRON_HELMET);
+        list.add(Items.IRON_CHESTPLATE);
+        list.add(Items.IRON_LEGGINGS);
+        list.add(Items.IRON_BOOTS);
         list.add(Items.IRON_INGOT);
+        list.add(Items.IRON_BLOCK);
+        list.add(Items.RAW_IRON);
+        list.add(Items.RAW_IRON_BLOCK);
         return list;
     }
 
