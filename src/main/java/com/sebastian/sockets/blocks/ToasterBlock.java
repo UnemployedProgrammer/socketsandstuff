@@ -69,7 +69,7 @@ public class ToasterBlock extends Block implements EntityBlock {
             if(pPlayer.isShiftKeyDown()) {
                 bE.useToasterKill();
             } else {
-                if(bE.useToasterBegin(pPlayer.getItemInHand(pHand).getItem())) {
+                if(bE.useToasterBegin(pPlayer.getItemInHand(pHand).getItem(), pPlayer)) {
                     pPlayer.getItemInHand(pHand).shrink(1);
                 }
             }

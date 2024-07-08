@@ -23,6 +23,7 @@ public class AllTabs {
                 output.accept(AllBlocks.MICROWAVE.get().asItem().getDefaultInstance());
                 output.accept(AllItems.TOASTED_BREAD.get().getDefaultInstance());
                 output.accept(AllItems.WIRE_AND_PLUG.get().getDefaultInstance());
+                output.accept(AllItems.SMART_PHONE.get().getDefaultInstance());
                 output.accept(ItemUtils.TabEnchantments.OVERHEATING);
                 output.accept(ItemUtils.TabEnchantments.MOLTEN_FORTUNE_1);
                 output.accept(ItemUtils.TabEnchantments.MOLTEN_FORTUNE_2);

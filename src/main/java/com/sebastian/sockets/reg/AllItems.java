@@ -18,5 +18,5 @@ public class AllItems {
     public static final RegistryObject<WireAndPlug> WIRE_AND_PLUG = ITEMS.register("wire_and_plug",
             () -> new WireAndPlug(new Item.Properties()));
     public static final RegistryObject<SmartPhoneItem> SMART_PHONE = ITEMS.register("smartphone",
-            () -> new SmartPhoneItem(new Item.Properties()));
+            () -> new SmartPhoneItem(new Item.Properties().fireResistant()));
 }

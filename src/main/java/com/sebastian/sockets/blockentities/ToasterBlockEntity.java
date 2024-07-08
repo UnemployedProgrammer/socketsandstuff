@@ -1,5 +1,6 @@
 package com.sebastian.sockets.blockentities;
 
+import com.sebastian.sockets.Config;
 import com.sebastian.sockets.math.RandomMath;
 import com.sebastian.sockets.misc.SimpleRawRecipe;
 import com.sebastian.sockets.recipe.ToasterRecipe;
@@ -11,10 +12,12 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
@@ -117,6 +120,13 @@ public class ToasterBlockEntity extends SocketPluggableEntity {
         return starter_or_empty_list_of_recipes;
     }
 
+    public static List<Item> boomItems() {
+        List<Item> list = new ArrayList<>();
+        list.add(Items.IRON_PICKAXE);
+        list.add(Items.IRON_INGOT);
+        return list;
+    }
+
     public static Item getOutputItemFromRecipeInput(Item input, Level lvl) {
         for (SimpleRawRecipe simpleRawRecipe : getRecipesList(new ArrayList<>(), lvl)) {
            if(simpleRawRecipe.in() == input) return simpleRawRecipe.out();
@@ -151,7 +161,7 @@ public class ToasterBlockEntity extends SocketPluggableEntity {
 
     /* Starts Processing // Returns if Item is Recipe / Start worked
      -- Toaster Start Function -- */
-    public boolean useToasterBegin(Item item) {
+    public boolean useToasterBegin(Item item, Entity entity) {
         if(recipe) return false;
         boolean out = false;
         if(getIsRecipeFromRecipeInput(item, level)) {
@@ -159,6 +169,12 @@ public class ToasterBlockEntity extends SocketPluggableEntity {
             recipe = true;
             out = true;
             sound(true);
+        } else if (boomItems().contains(item)) {
+            if(Config.rangeBoomItems != 0) {
+                Explosion explode = level.explode(entity, worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), Config.rangeBoomItems, Config.fireBoomItems, Level.ExplosionInteraction.BLOCK);
+                explode.finalizeExplosion(true);
+                explode.explode();
+            }
         }
         return out;
     }

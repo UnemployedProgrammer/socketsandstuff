@@ -51,7 +51,7 @@ public class SmartPhoneKernel {
         currentApp.onMouseScroll(delta);
     }
 
-    public String getGameTime(Level lvl) {
+    public static String getGameTime(Level lvl) {
         long dayTicks = lvl.getDayTime();
         // Each Minecraft day is 24000 ticks
         long ticksPerDay = 24000L;
