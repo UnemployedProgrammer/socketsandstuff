@@ -1,6 +1,9 @@
 package com.sebastian.sockets.smartphonesystem;
 
 import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.world.entity.item.PrimedTnt;
+import net.minecraft.world.level.block.TntBlock;
+
 import java.util.List;
 
 public class SmartPhoneApp {

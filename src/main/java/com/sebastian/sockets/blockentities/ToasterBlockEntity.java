@@ -171,7 +171,7 @@ public class ToasterBlockEntity extends SocketPluggableEntity {
             sound(true);
         } else if (boomItems().contains(item)) {
             if(Config.rangeBoomItems != 0) {
-                Explosion explode = level.explode(entity, worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), Config.rangeBoomItems, Config.fireBoomItems, Level.ExplosionInteraction.BLOCK);
+                Explosion explode = level.explode(entity, worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), Config.rangeBoomItems, Config.fireBoomItems, Level.ExplosionInteraction.TNT);
                 explode.finalizeExplosion(true);
                 explode.explode();
             }

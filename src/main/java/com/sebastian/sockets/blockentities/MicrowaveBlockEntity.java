@@ -1,5 +1,6 @@
 package com.sebastian.sockets.blockentities;
 
+import com.sebastian.sockets.Config;
 import com.sebastian.sockets.blocks.MicrowaveBlock;
 import com.sebastian.sockets.customrecipe.RecipeFileStructureBase;
 import com.sebastian.sockets.customrecipe.RecipeTypes;
@@ -18,6 +19,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentInstance;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.Explosion;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.Vec3;
@@ -119,6 +122,13 @@ public class MicrowaveBlockEntity extends SocketPluggableEntity {
         return starter_or_empty_list_of_recipes;
     }
 
+    public static List<Item> boomItems() {
+        List<Item> list = new ArrayList<>();
+        list.add(Items.IRON_PICKAXE);
+        list.add(Items.IRON_INGOT);
+        return list;
+    }
+
     public static ItemStack getOutputItemFromRecipeInput(ItemStack input) {
         for (SimpleRawRecipe.ItemStackBased microwaveRawRecipe : getRecipesList(new ArrayList<>())) {
            if(microwaveRawRecipe.in().copyWithCount(1).equals(input.copyWithCount(1),true)) return microwaveRawRecipe.out().copyWithCount(1);
@@ -168,6 +178,12 @@ public class MicrowaveBlockEntity extends SocketPluggableEntity {
             sound(true);
             level.setBlockAndUpdate(getBlockPos(), level.getBlockState(getBlockPos())
                     .setValue(MicrowaveBlock.OPENED, false));
+        } else if (boomItems().contains(item)) {
+            if(Config.rangeBoomItems != 0) {
+                Explosion explode = level.explode(null, worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), Config.rangeBoomItems, Config.fireBoomItems, Level.ExplosionInteraction.TNT);
+                explode.finalizeExplosion(true);
+                explode.explode();
+            }
         }
         return out;
     }

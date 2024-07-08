@@ -26,7 +26,7 @@ public class Config
 
     private static final ForgeConfigSpec.IntValue BOOM_ITEMS_RANGE = BUILDER
             .comment("When you put for example iron in a toaster, for example, it explodes. This is the strength. Set to 0 if disabled.")
-            .defineInRange("dangerousExplodeItemsRange", 8, 1, 1000);
+            .defineInRange("dangerousExplodeItemsRange", 5, 1, 1000);
 
     private static final ForgeConfigSpec.BooleanValue BOOM_ITEMS_FIRE = BUILDER
             .comment("When you put for example iron in a toaster, for example, it explodes. This is enabled, when the explosion should spawn fire.")
